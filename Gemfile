@@ -56,6 +56,9 @@ gem "bootsnap", require: false
 # Use Sidekiq to process background jobs
 gem "sidekiq"
 
+# Use Faraday for http requests
+gem "faraday"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[mri mingw x64_mingw]
