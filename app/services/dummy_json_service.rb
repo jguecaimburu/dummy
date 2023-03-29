@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'faraday'
-
 class DummyJsonService
   BASE_URI = URI("https://dummyjson.com")
 
@@ -10,9 +8,9 @@ class DummyJsonService
   def initialize(http_client: nil)
     @http_client = http_client || Faraday
   end
-  
+
   def users_data(skip: 0, limit: 10)
-    get("/users", params: { skip: skip, limit: limit })
+    get("/users", params: { skip:, limit: })
   end
 
   def get(resource_path, params: {})
