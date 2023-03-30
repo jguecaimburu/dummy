@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class FetchDummyUsers < ApplicationJob
+class FetchDummyJsonUsersJob < ApplicationJob
   def perform(skip_users, limit_users, retries = 0)
     # TODO: Implement work logic
   end
