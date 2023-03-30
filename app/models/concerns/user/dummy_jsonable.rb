@@ -4,14 +4,20 @@ class User
   module DummyJsonable
     extend ActiveSupport::Concern
 
+    included do
+      has_one :dummy_json_user_response, dependent: :destroy
+    end
+
     # rubocop:disable Metrics/BlockLength, Metrics/AbcSize, Metrics/MethodLength
     class_methods do
-      def create_from_dummy_json_data!(dummy_data)
-        data = process_dummy_json_data(dummy_data)
+      def create_from_dummy_json_response!(dummy_json_user_response)
+        external_reference = dummy_json_user_response.external_reference
+        other_users = joins(:dummy_json_user_response)
+                      .merge(DummyJsonUserResponse.where(external_reference:))
+        return if other_users.exists?
 
-        user = User.find_by(external_source: "dummy_json", external_reference: data[:user][:external_reference])
-        return if user
-
+        data = process_dummy_json_data(dummy_json_user_response.data)
+        user = nil
         transaction do
           user = create!(data[:user])
           user.create_bank!(data[:bank])
@@ -22,6 +28,7 @@ class User
             company.create_address!(data[:company_address])
           end
           user.create_company_member!(company:)
+          dummy_json_user_response.update!(user:)
         end
 
         user
@@ -43,10 +50,9 @@ class User
       end
 
       def process_dummy_attribute(key, value, processed_data)
+        return if key == :id
+
         case key
-        when :id
-          processed_data[:user][:external_reference] = value
-          processed_data[:user][:external_source] = "dummy_json"
         when :hair
           processed_data[:user][:hair_color] = value[:color]
           processed_data[:user][:hair_type] = value[:type]

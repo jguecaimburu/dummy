@@ -44,6 +44,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_29_162542) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_companies_on_name", unique: true
   end
 
   create_table "company_members", force: :cascade do |t|
@@ -57,13 +58,25 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_29_162542) do
     t.index ["user_id"], name: "index_company_members_on_user_id"
   end
 
+  create_table "dummy_json_user_responses", force: :cascade do |t|
+    t.bigint "user_id"
+    t.jsonb "data"
+    t.string "status", default: "pending"
+    t.string "external_reference"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["external_reference"], name: "index_dummy_json_user_responses_on_external_reference", unique: true
+    t.index ["status"], name: "index_dummy_json_user_responses_on_status"
+    t.index ["user_id"], name: "index_dummy_json_user_responses_on_user_id", unique: true
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
     t.string "maiden_name"
+    t.string "email"
     t.integer "age"
     t.string "gender"
-    t.string "email"
     t.string "phone"
     t.string "username"
     t.string "password"
@@ -82,14 +95,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_29_162542) do
     t.string "ein"
     t.string "ssn"
     t.string "user_agent"
-    t.string "external_source"
-    t.integer "external_reference"
     t.boolean "soft_deleted", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email"
+    t.index ["first_name"], name: "index_users_on_first_name"
+    t.index ["last_name"], name: "index_users_on_last_name"
+    t.index ["maiden_name"], name: "index_users_on_maiden_name"
+    t.index ["soft_deleted"], name: "index_users_on_soft_deleted"
   end
 
   add_foreign_key "banks", "users"
   add_foreign_key "company_members", "companies"
   add_foreign_key "company_members", "users"
+  add_foreign_key "dummy_json_user_responses", "users"
 end

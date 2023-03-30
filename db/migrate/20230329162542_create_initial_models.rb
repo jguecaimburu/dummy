@@ -4,12 +4,12 @@
 class CreateInitialModels < ActiveRecord::Migration[7.0]
   def change
     create_table :users do |t|
-      t.string :first_name
-      t.string :last_name
-      t.string :maiden_name
+      t.string :first_name, index: true
+      t.string :last_name, index: true
+      t.string :maiden_name, index: true
+      t.string :email, index: true
       t.integer :age
       t.string :gender
-      t.string :email
       t.string :phone
       t.string :username
       t.string :password
@@ -28,14 +28,12 @@ class CreateInitialModels < ActiveRecord::Migration[7.0]
       t.string :ein
       t.string :ssn
       t.string :user_agent
-      t.string :external_source
-      t.integer :external_reference
-      t.boolean :soft_deleted, default: false
+      t.boolean :soft_deleted, default: false, index: true
       t.timestamps
     end
 
     create_table :companies do |t|
-      t.string :name
+      t.string :name, index: { unique: true }
       t.timestamps
     end
 
@@ -65,6 +63,14 @@ class CreateInitialModels < ActiveRecord::Migration[7.0]
       t.string :currency
       t.string :iban
       t.references :user, null: false, foreign_key: true
+      t.timestamps
+    end
+
+    create_table :dummy_json_user_responses do |t|
+      t.references :user, null: true, foreign_key: true, index: { unique: true }
+      t.jsonb :data
+      t.string :status, default: "pending", index: true
+      t.string :external_reference, index: { unique: true }
       t.timestamps
     end
   end

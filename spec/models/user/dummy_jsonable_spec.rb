@@ -9,8 +9,6 @@ describe User::DummyJsonable do
   describe "process_dummy_json_data" do
     let(:output_user_data) do
       {
-        external_reference: 1,
-        external_source: "dummy_json",
         first_name: "Terry",
         last_name: "Medhurst",
         maiden_name: "Smitham",
@@ -83,11 +81,15 @@ describe User::DummyJsonable do
   end
   # rubocop:enable RSpec/MultipleMemoizedHelpers
 
-  describe "create_from_dummy_json_data!" do
+  describe "create_from_dummy_json_response!" do
+    let(:dummy_json_user_response) do
+      DummyJsonUserResponse.create!(data: input_data, external_reference: input_data["id"])
+    end
+
     context "when new user and new company" do
       it "creates all new records with json data" do
         expect do
-          User.create_from_dummy_json_data!(input_data)
+          User.create_from_dummy_json_response!(dummy_json_user_response)
         end.to(
           change(User, :count).by(1)
           .and(change(Company, :count).by(1))
@@ -103,7 +105,7 @@ describe User::DummyJsonable do
 
       it "creates only new records with json data" do
         expect do
-          User.create_from_dummy_json_data!(input_data)
+          User.create_from_dummy_json_response!(dummy_json_user_response)
         end.to(
           change(User, :count).by(1)
           .and(not_change { Company.count })
@@ -115,11 +117,11 @@ describe User::DummyJsonable do
     end
 
     context "when existing user" do
-      before { User.create_from_dummy_json_data!(input_data) }
+      before { User.create_from_dummy_json_response!(dummy_json_user_response) }
 
       it "does not create any record" do
         expect do
-          User.create_from_dummy_json_data!(input_data)
+          User.create_from_dummy_json_response!(dummy_json_user_response)
         end.to(
           not_change { User.count }
           .and(not_change { Company.count })

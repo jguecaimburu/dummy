@@ -12,7 +12,7 @@ class FetchDummyJsonUsersJob < ApplicationJob
     users_data = fetch_dummy_json_data
     return if users_data.empty?
 
-    bulk_create_users(users_data)
+    bulk_create_user_responses(users_data)
 
     return if users_data["total"] <= @skip_users + @limit_users
 
@@ -27,14 +27,11 @@ class FetchDummyJsonUsersJob < ApplicationJob
     {}
   end
 
-  def bulk_create_users(users_data)
+  def bulk_create_user_responses(users_data)
     users_data["users"].each do |user_data|
-      User.create_from_dummy_json_data!(user_data)
-    rescue ActiveRecord::RecordInvalid => e
-      logger.error
-      "Failed to create user and associated records. #{
-            { data: user_data, error: e.message }.to_json
-          }"
+      next if DummyJsonUserResponse.find_by(external_reference: user_data["id"])
+
+      DummyJsonUserResponse.create!(data: user_data, external_reference: user_data["id"])
     end
   end
 
