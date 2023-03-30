@@ -1,10 +1,13 @@
+# frozen_string_literal: true
+
 require "rails_helper"
 
-describe User do
+describe User::DummyJsonable do
   let(:input_data) { JSON.parse(file_fixture("dummy_json/single_user.json").read) }
-  
+
+  # rubocop:disable RSpec/MultipleMemoizedHelpers
   describe "process_dummy_json_data" do
-    let(:output_user_data) {
+    let(:output_user_data) do
       {
         external_reference: 1,
         external_source: "dummy_json",
@@ -31,10 +34,11 @@ describe User do
         university: "Capitol University",
         ein: "20-9487066",
         ssn: "661-64-2976",
-        user_agent: "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/12.0.702.0 Safari/534.24"
-      }  
-    }
-    let(:output_user_address_data) {
+        user_agent:
+          "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/12.0.702.0 Safari/534.24"
+      }
+    end
+    let(:output_user_address_data) do
       {
         address: "1745 T Street Southeast",
         city: "Washington",
@@ -42,9 +46,9 @@ describe User do
         state: "DC",
         latitude: 38.867033,
         longitude: -76.979235
-      }  
-    }
-    let(:output_company_address_data) {
+      }
+    end
+    let(:output_company_address_data) do
       {
         address: "629 Debbie Drive",
         city: "Nashville",
@@ -52,9 +56,9 @@ describe User do
         state: "TN",
         latitude: 36.208114,
         longitude: -86.58621199999999
-      }  
-    }
-    let(:output_bank_data) {
+      }
+    end
+    let(:output_bank_data) do
       {
         card_expire: "06/22",
         card_number: "50380955204220685",
@@ -62,13 +66,13 @@ describe User do
         currency: "Peso",
         iban: "NO17 0695 2754 967"
       }
-    }
+    end
     let(:output_company_data) { { name: "Blanda-O'Keefe" } }
     let(:output_company_member_data) { { department: "Marketing", title: "Help Desk Operator" } }
 
-    it "should return the right hash" do
+    it "returns the right hash" do
       processed_data = User.process_dummy_json_data(input_data)
-      
+
       expect(processed_data[:user]).to eq(output_user_data)
       expect(processed_data[:user_address]).to eq(output_user_address_data)
       expect(processed_data[:company_address]).to eq(output_company_address_data)
@@ -77,18 +81,19 @@ describe User do
       expect(processed_data[:company_member]).to eq(output_company_member_data)
     end
   end
+  # rubocop:enable RSpec/MultipleMemoizedHelpers
 
   describe "create_from_dummy_json_data!" do
     context "when new user and new company" do
-      it "should create all new records with json data" do
+      it "creates all new records with json data" do
         expect do
           User.create_from_dummy_json_data!(input_data)
         end.to(
-          change { User.count }.by(1)
-          .and(change { Company.count }.by(1))
-          .and(change { Address.count }.by(2))
-          .and(change { CompanyMember.count }.by(1))
-          .and(change { Bank.count }.by(1))
+          change(User, :count).by(1)
+          .and(change(Company, :count).by(1))
+          .and(change(Address, :count).by(2))
+          .and(change(CompanyMember, :count).by(1))
+          .and(change(Bank, :count).by(1))
         )
       end
     end
@@ -96,15 +101,15 @@ describe User do
     context "when new user and existing company" do
       before { Company.create!(name: "Blanda-O'Keefe") }
 
-      it "should create only new records with json data" do
+      it "creates only new records with json data" do
         expect do
           User.create_from_dummy_json_data!(input_data)
         end.to(
-          change { User.count }.by(1)
+          change(User, :count).by(1)
           .and(not_change { Company.count })
-          .and(change { Address.count }.by(1))
-          .and(change { CompanyMember.count }.by(1))
-          .and(change { Bank.count }.by(1))
+          .and(change(Address, :count).by(1))
+          .and(change(CompanyMember, :count).by(1))
+          .and(change(Bank, :count).by(1))
         )
       end
     end
@@ -112,7 +117,7 @@ describe User do
     context "when existing user" do
       before { User.create_from_dummy_json_data!(input_data) }
 
-      it "should not create any record" do
+      it "does not create any record" do
         expect do
           User.create_from_dummy_json_data!(input_data)
         end.to(

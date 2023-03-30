@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# rubocop:disable Metrics/BlockLength, Metrics/AbcSize, Metrics/MethodLength
 class CreateInitialModels < ActiveRecord::Migration[7.0]
   def change
     create_table :users do |t|
@@ -65,4 +68,5 @@ class CreateInitialModels < ActiveRecord::Migration[7.0]
       t.timestamps
     end
   end
+  # rubocop:enable Metrics/BlockLength, Metrics/AbcSize, Metrics/MethodLength
 end
