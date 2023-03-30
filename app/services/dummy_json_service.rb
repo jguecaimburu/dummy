@@ -16,6 +16,10 @@ class DummyJsonService
   def get(resource_path, params: {})
     uri = BASE_URI.merge(resource_path)
     response = http_client.get(uri, params, { "Accept" => "application/json" })
-    JSON.parse(response.body) if response.success?
+    unless response.success?
+      raise "Failed GET request. #{{ api_endpoint: uri.to_s, params:, response: response.to_h }.to_json}"
+    end
+
+    JSON.parse(response.body)
   end
 end
