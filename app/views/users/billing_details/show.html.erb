@@ -1,0 +1,177 @@
+<article class="container-fluid content">
+  <header class="row mb-5">
+    <div class="col">
+      <nav class="bg-light rounded p-3 mb-1">
+        <%= link_to "New user", new_user_path %>
+      </nav>
+    </div>
+  </header>
+
+  <div class="row justify-content-center">
+    <div class="col">
+      <div class="alert-success"><%= notice %></div>
+      <div id="user">
+        <div class="container px-0">
+          <div class="row">
+            <div class="col">
+              <div class="card mb-4">
+                <div class="card-body text-center">
+                  
+                  <div class="row align-items-start">
+                    <div class="col">
+                      <div>
+                        <%= image_tag(@user.image, alt: "avatar", class: "rounded-circle img-fluid user-profile-picture") %>
+                        <p class="h3 mt-3"><%= @user.name %></p>
+                        <p><%= @user.email %></p>
+                      </div>
+                      
+                      <div
+                        class="nav flex-column nav-pills text-center"
+                        id="v-pills-tab"
+                        role="tablist"
+                        aria-orientation="vertical">
+
+                        <%= link_to "Personal Data",
+                              @user,
+                              class: "nav-link",
+                              role: "tab", aria: { selected: false } %>
+
+                        <%= link_to "Billing Details",
+                              "#",
+                              class: "nav-link active",
+                              role: "tab", aria: { selected: true } %>
+                        
+                        <%= link_to "Company",
+                              user_company_detail_path(@user),
+                              class: "nav-link", 
+                              role: "tab", aria: { selected: false } %>
+                              
+                      </div>
+                    </div>
+
+                    <div class="col mt-4">
+                      <% @bank_class = Bank %>
+                      <h2 class="h4 mb-4"><%= @bank_class.model_name.human %></h2>
+
+                      <div class="row border-bottom mx-2 mb-3 pb-2">
+                        <div class="col-sm-4">
+                          <p class="mb-0"><%= @bank_class.human_attribute_name(:iban) %></p>
+                        </div>
+                        <div class="col-sm-8">
+                          <p class="text-muted mb-0"><%= @bank.iban %></p>
+                        </div>
+                      </div>
+
+                      <div class="row border-bottom mx-2 mb-3 pb-2">
+                        <div class="col-sm-4">
+                          <p class="mb-0"><%= @bank_class.human_attribute_name(:currency) %></p>
+                        </div>
+                        <div class="col-sm-8">
+                          <p class="text-muted mb-0"><%= @bank.currency %></p>
+                        </div>
+                      </div>
+
+                      <div class="row border-bottom mx-2 mb-3 pb-2">
+                        <div class="col-sm-4">
+                          <p class="mb-0"><%= @bank_class.human_attribute_name(:card_type) %></p>
+                        </div>
+                        <div class="col-sm-8">
+                          <p class="text-muted mb-0"><%= @bank.card_type %></p>
+                        </div>
+                      </div>
+
+                      <div class="row border-bottom mx-2 mb-3 pb-2">
+                        <div class="col-sm-4">
+                          <p class="mb-0"><%= @bank_class.human_attribute_name(:card_number) %></p>
+                        </div>
+                        <div class="col-sm-8">
+                          <p class="text-muted mb-0"><%= @bank.card_number %></p>
+                        </div>
+                      </div>
+
+                      <div class="row border-bottom mx-2 pb-2">
+                        <div class="col-sm-4">
+                          <p class="mb-0"><%= @bank_class.human_attribute_name(:card_expire) %></p>
+                        </div>
+                        <div class="col-sm-8">
+                          <p class="text-muted mb-0"><%= @bank.card_expire %></p>
+                        </div>
+                      </div>
+
+                      <div class="d-flex justify-content-end mt-5">
+                        <button type="button" class="btn btn-primary">Edit</button>
+                      </div>
+                    </div>
+
+                    <div class="col mt-4">
+                      <% @address_class = Address %>
+                      <h2 class="h4 mb-4"><%= @address_class.model_name.human %></h2>
+
+                      <div class="row border-bottom mx-2 mb-3 pb-2">
+                        <div class="col-sm-4">
+                          <p class="mb-0"><%= @address_class.human_attribute_name(:address) %></p>
+                        </div>
+                        <div class="col-sm-8">
+                          <p class="text-muted mb-0"><%= @address.address %></p>
+                        </div>
+                      </div>
+
+                      <div class="row border-bottom mx-2 mb-3 pb-2">
+                        <div class="col-sm-4">
+                          <p class="mb-0"><%= @address_class.human_attribute_name(:city) %></p>
+                        </div>
+                        <div class="col-sm-8">
+                          <p class="text-muted mb-0"><%= @address.city %></p>
+                        </div>
+                      </div>
+
+                      <div class="row border-bottom mx-2 mb-3 pb-2">
+                        <div class="col-sm-4">
+                          <p class="mb-0"><%= @address_class.human_attribute_name(:state) %></p>
+                        </div>
+                        <div class="col-sm-8">
+                          <p class="text-muted mb-0"><%= @address.state %></p>
+                        </div>
+                      </div>
+
+                      <div class="row border-bottom mx-2 mb-3 pb-2">
+                        <div class="col-sm-4">
+                          <p class="mb-0"><%= @address_class.human_attribute_name(:postal_code) %></p>
+                        </div>
+                        <div class="col-sm-8">
+                          <p class="text-muted mb-0"><%= @address.postal_code %></p>
+                        </div>
+                      </div>
+
+                      <div class="row border-bottom mx-2 mb-3 pb-2">
+                        <div class="col-sm-4">
+                          <p class="mb-0"><%= @address_class.human_attribute_name(:latitude) %></p>
+                        </div>
+                        <div class="col-sm-8">
+                          <p class="text-muted mb-0"><%= @address.latitude %></p>
+                        </div>
+                      </div>
+
+                      <div class="row border-bottom mx-2 mb-3 pb-2">
+                        <div class="col-sm-4">
+                          <p class="mb-0"><%= @address_class.human_attribute_name(:longitude) %></p>
+                        </div>
+                        <div class="col-sm-8">
+                          <p class="text-muted mb-0"><%= @address.longitude %></p>
+                        </div>
+                      </div>
+
+                      <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-primary">Edit</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>

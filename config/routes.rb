@@ -3,9 +3,15 @@
 require "sidekiq/web"
 
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  # root "articles#index"
   mount Sidekiq::Web => "/sidekiq"
+
+  root to: redirect(path: '/users')
+
+  resources :users do
+    resource :billing_detail, only: [:show], controller: "users/billing_details"
+    resource :company_detail, only: [:show], controller: "users/company_details"
+  end
+
+  resources :addresses
+  resources :banks
 end

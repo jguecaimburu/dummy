@@ -1,2 +1,14 @@
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
+
+.content {
+    padding: 50px 15% 5% 15%;
+}
+
+.users-table-header-name {
+    padding-left: calc(45px + 1rem);
+}
+
+.user-profile-picture {
+    width: 250px;
+}
