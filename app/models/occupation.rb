@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
-class Address < ApplicationRecord
+class Occupation < ApplicationRecord
   belongs_to :user
 end

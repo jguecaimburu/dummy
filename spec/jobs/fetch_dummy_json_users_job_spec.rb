@@ -28,11 +28,11 @@ describe FetchDummyJsonUsersJob do
           ParseDummyJsonUsersJob.drain
         end.to(
           change(User, :count).by(100)
-          .and(change(Company, :count).by(100))
-          .and(change(Address, :count).by(200))
-          .and(change(CompanyMember, :count).by(100))
+          .and(change(Occupation, :count).by(100))
+          .and(change(Address, :count).by(100))
           .and(change(Bank, :count).by(100))
           .and(change(DummyJsonUserResponse, :count).by(100))
+          .and(change { DummyJsonUserResponse.processed.where.not(user_id: nil).count }.by(100))
           .and(not_change { described_class.jobs.size })
         )
         expect(Faraday).to have_received(:get).exactly(10)
@@ -60,11 +60,11 @@ describe FetchDummyJsonUsersJob do
           ParseDummyJsonUsersJob.drain
         end.to(
           change(User, :count).by(95)
-          .and(change(Company, :count).by(95))
-          .and(change(Address, :count).by(190))
-          .and(change(CompanyMember, :count).by(95))
+          .and(change(Occupation, :count).by(95))
+          .and(change(Address, :count).by(95))
           .and(change(Bank, :count).by(95))
           .and(change(DummyJsonUserResponse, :count).by(95))
+          .and(change { DummyJsonUserResponse.processed.where.not(user_id: nil).count }.by(95))
           .and(not_change { described_class.jobs.size })
         )
         expect(Faraday).to have_received(:get).exactly(10)

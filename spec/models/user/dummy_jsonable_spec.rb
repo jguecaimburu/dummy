@@ -36,18 +36,11 @@ describe User::DummyJsonable do
           "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/12.0.702.0 Safari/534.24"
       }
     end
-    let(:output_user_address_data) do
+    let(:output_occupation_data) do
       {
-        address: "1745 T Street Southeast",
-        city: "Washington",
-        postal_code: "20020",
-        state: "DC",
-        latitude: 38.867033,
-        longitude: -76.979235
-      }
-    end
-    let(:output_company_address_data) do
-      {
+        company_name: "Blanda-O'Keefe",
+        department: "Marketing",
+        title: "Help Desk Operator",
         address: "629 Debbie Drive",
         city: "Nashville",
         postal_code: "37076",
@@ -65,18 +58,24 @@ describe User::DummyJsonable do
         iban: "NO17 0695 2754 967"
       }
     end
-    let(:output_company_data) { { name: "Blanda-O'Keefe" } }
-    let(:output_company_member_data) { { department: "Marketing", title: "Help Desk Operator" } }
+    let(:output_address_data) do
+      {
+        address: "1745 T Street Southeast",
+        city: "Washington",
+        postal_code: "20020",
+        state: "DC",
+        latitude: 38.867033,
+        longitude: -76.979235
+      }
+    end
 
     it "returns the right hash" do
       processed_data = User.process_dummy_json_data(input_data)
 
-      expect(processed_data[:user]).to eq(output_user_data)
-      expect(processed_data[:user_address]).to eq(output_user_address_data)
-      expect(processed_data[:company_address]).to eq(output_company_address_data)
-      expect(processed_data[:bank]).to eq(output_bank_data)
-      expect(processed_data[:company]).to eq(output_company_data)
-      expect(processed_data[:company_member]).to eq(output_company_member_data)
+      expect(processed_data.except(:address_attributes, :bank_attributes, :occupation_attributes)).to eq(output_user_data)
+      expect(processed_data[:address_attributes]).to eq(output_address_data)
+      expect(processed_data[:bank_attributes]).to eq(output_bank_data)
+      expect(processed_data[:occupation_attributes]).to eq(output_occupation_data)
     end
   end
   # rubocop:enable RSpec/MultipleMemoizedHelpers
@@ -92,26 +91,10 @@ describe User::DummyJsonable do
           User.create_from_dummy_json_response!(dummy_json_user_response)
         end.to(
           change(User, :count).by(1)
-          .and(change(Company, :count).by(1))
-          .and(change(Address, :count).by(2))
-          .and(change(CompanyMember, :count).by(1))
-          .and(change(Bank, :count).by(1))
-        )
-      end
-    end
-
-    context "when new user and existing company" do
-      before { Company.create!(name: "Blanda-O'Keefe") }
-
-      it "creates only new records with json data" do
-        expect do
-          User.create_from_dummy_json_response!(dummy_json_user_response)
-        end.to(
-          change(User, :count).by(1)
-          .and(not_change { Company.count })
+          .and(change(Occupation, :count).by(1))
           .and(change(Address, :count).by(1))
-          .and(change(CompanyMember, :count).by(1))
           .and(change(Bank, :count).by(1))
+          .and(change { DummyJsonUserResponse.where.not(user_id: nil).count }.by(1))
         )
       end
     end
@@ -124,9 +107,8 @@ describe User::DummyJsonable do
           User.create_from_dummy_json_response!(dummy_json_user_response)
         end.to(
           not_change { User.count }
-          .and(not_change { Company.count })
+          .and(not_change { Occupation.count })
           .and(not_change { Address.count })
-          .and(not_change { CompanyMember.count })
           .and(not_change { Bank.count })
         )
       end

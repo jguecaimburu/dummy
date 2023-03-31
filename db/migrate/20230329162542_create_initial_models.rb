@@ -32,16 +32,17 @@ class CreateInitialModels < ActiveRecord::Migration[7.0]
       t.timestamps
     end
 
-    create_table :companies do |t|
-      t.string :name, index: { unique: true }
-      t.timestamps
-    end
-
-    create_table :company_members do |t|
-      t.references :user, null: false, foreign_key: true
-      t.references :company, null: false, foreign_key: true
+    create_table :occupations do |t|
+      t.string :company_name, index: { unique: true }
       t.string :title
       t.string :department
+      t.string :address
+      t.string :city
+      t.float :latitude
+      t.float :longitude
+      t.string :postal_code
+      t.string :state
+      t.references :user, null: false, foreign_key: true
       t.timestamps
     end
 
@@ -52,7 +53,7 @@ class CreateInitialModels < ActiveRecord::Migration[7.0]
       t.float :longitude
       t.string :postal_code
       t.string :state
-      t.references :addressable, polymorphic: true, null: false
+      t.references :user, null: false, foreign_key: true
       t.timestamps
     end
 
@@ -70,7 +71,7 @@ class CreateInitialModels < ActiveRecord::Migration[7.0]
       t.references :user, null: true, foreign_key: true, index: { unique: true }
       t.jsonb :data
       t.string :status, default: "pending", index: true
-      t.string :external_reference, index: { unique: true }
+      t.integer :external_reference, index: { unique: true }
       t.timestamps
     end
   end

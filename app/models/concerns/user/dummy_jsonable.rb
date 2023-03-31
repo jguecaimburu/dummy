@@ -19,16 +19,8 @@ class User
         data = process_dummy_json_data(dummy_json_user_response.data)
         user = nil
         transaction do
-          user = create!(data[:user])
-          user.create_bank!(data[:bank])
-          user.create_address!(data[:user_address])
-          company = Company.find_by(name: data[:company][:name])
-          unless company
-            company = Company.create!(data[:company])
-            company.create_address!(data[:company_address])
-          end
-          user.create_company_member!(company:)
-          dummy_json_user_response.update!(user:)
+          user = create!(data)
+          dummy_json_user_response.update!(user: user)
         end
 
         user
@@ -36,45 +28,40 @@ class User
 
       def process_dummy_json_data(dummy_data)
         data = {
-          user: {},
-          user_address: {},
-          company: {},
-          company_member: {},
-          company_address: {},
-          bank: {}
+          bank_attributes: {},
+          address_attributes: {},
+          occupation_attributes: {}
         }
-        underscored_data = dummy_data.deep_transform_keys { |key| key.underscore.to_sym }
+        underscored_data = dummy_data.except("id").deep_transform_keys { |key| key.underscore.to_sym }
         underscored_data.each_with_object(data) do |(key, value), processed_data|
           process_dummy_attribute(key, value, processed_data)
         end
       end
 
       def process_dummy_attribute(key, value, processed_data)
-        return if key == :id
-
         case key
         when :hair
-          processed_data[:user][:hair_color] = value[:color]
-          processed_data[:user][:hair_type] = value[:type]
+          processed_data[:hair_color] = value[:color]
+          processed_data[:hair_type] = value[:type]
         when :address
           coordinates = value[:coordinates]
           address_data = value.except(:coordinates)
           address_data[:latitude] = coordinates[:lat]
           address_data[:longitude] = coordinates[:lng]
-          processed_data[:user_address] = address_data
+          processed_data[:address_attributes] = address_data
         when :company
           coordinates = value[:address][:coordinates]
-          address_data = value[:address].except(:coordinates)
-          address_data[:latitude] = coordinates[:lat]
-          address_data[:longitude] = coordinates[:lng]
-          processed_data[:company_address] = address_data
-          processed_data[:company][:name] = value[:name]
-          processed_data[:company_member][:department] = value[:department]
-          processed_data[:company_member][:title] = value[:title]
+          occupation_data = value[:address].except(:coordinates)
+          occupation_data[:latitude] = coordinates[:lat]
+          occupation_data[:longitude] = coordinates[:lng]
+          occupation_data[:company_name] = value[:name]
+          occupation_data[:department] = value[:department]
+          occupation_data[:title] = value[:title]
+          processed_data[:occupation_attributes] = occupation_data
         when :bank
-          processed_data[:bank] = value
+          processed_data[:bank_attributes] = value
         else
-          processed_data[:user][key] = value
+          processed_data[key] = value
         end
       end
     end

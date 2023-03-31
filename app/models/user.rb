@@ -4,9 +4,14 @@ class User < ApplicationRecord
   include DummyJsonable
 
   has_one :bank, dependent: :destroy
-  has_one :company_member, dependent: :destroy
-  has_one :company, through: :company_member
-  has_one :address, as: :addressable, inverse_of: :addressable, dependent: :destroy
+  has_one :address, dependent: :destroy
+  has_one :occupation, dependent: :destroy
+
+  accepts_nested_attributes_for :bank, :address, :occupation
+  
+  validates_associated :bank, on: :create
+  validates_associated :address, on: :create
+  validates_associated :occupation, on: :create
 
   encrypts :password
 

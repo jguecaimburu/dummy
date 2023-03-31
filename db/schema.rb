@@ -21,11 +21,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_29_162542) do
     t.float "longitude"
     t.string "postal_code"
     t.string "state"
-    t.string "addressable_type", null: false
-    t.bigint "addressable_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable"
+    t.index ["user_id"], name: "index_addresses_on_user_id"
   end
 
   create_table "banks", force: :cascade do |t|
@@ -40,34 +39,33 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_29_162542) do
     t.index ["user_id"], name: "index_banks_on_user_id"
   end
 
-  create_table "companies", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_companies_on_name", unique: true
-  end
-
-  create_table "company_members", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "company_id", null: false
-    t.string "title"
-    t.string "department"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["company_id"], name: "index_company_members_on_company_id"
-    t.index ["user_id"], name: "index_company_members_on_user_id"
-  end
-
   create_table "dummy_json_user_responses", force: :cascade do |t|
     t.bigint "user_id"
     t.jsonb "data"
     t.string "status", default: "pending"
-    t.string "external_reference"
+    t.integer "external_reference"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["external_reference"], name: "index_dummy_json_user_responses_on_external_reference", unique: true
     t.index ["status"], name: "index_dummy_json_user_responses_on_status"
     t.index ["user_id"], name: "index_dummy_json_user_responses_on_user_id", unique: true
+  end
+
+  create_table "occupations", force: :cascade do |t|
+    t.string "company_name"
+    t.string "title"
+    t.string "department"
+    t.string "address"
+    t.string "city"
+    t.float "latitude"
+    t.float "longitude"
+    t.string "postal_code"
+    t.string "state"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_name"], name: "index_occupations_on_company_name", unique: true
+    t.index ["user_id"], name: "index_occupations_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -105,8 +103,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_29_162542) do
     t.index ["soft_deleted"], name: "index_users_on_soft_deleted"
   end
 
+  add_foreign_key "addresses", "users"
   add_foreign_key "banks", "users"
-  add_foreign_key "company_members", "companies"
-  add_foreign_key "company_members", "users"
   add_foreign_key "dummy_json_user_responses", "users"
+  add_foreign_key "occupations", "users"
 end
