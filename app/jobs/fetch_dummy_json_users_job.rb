@@ -20,7 +20,7 @@ class FetchDummyJsonUsersJob < ApplicationJob
   end
 
   def fetch_dummy_json_data
-    DummyJsonService.new.users_data
+    DummyJsonService.new.users_data(skip: @skip_users, limit: @limit_users)
   rescue RuntimeError => e
     logger.error e.message
     attempt_retry
