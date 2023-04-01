@@ -72,7 +72,7 @@ describe FetchDummyJsonUsersJob do
     end
   end
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/AbcSize
   def build_user_pages(total:, per_page:)
     single_user_json = file_fixture("dummy_json/single_user.json").read
     pages = (total / per_page.to_f).ceil
@@ -91,6 +91,6 @@ describe FetchDummyJsonUsersJob do
       end.compact
       { users: users_data, total: pages * per_page, skip:, limit: per_page }
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:enable Metrics/AbcSize
   end
 end

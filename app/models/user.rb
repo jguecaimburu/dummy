@@ -8,7 +8,7 @@ class User < ApplicationRecord
   has_one :occupation, dependent: :destroy
 
   accepts_nested_attributes_for :bank, :address, :occupation
-  
+
   validates_associated :bank, on: :create
   validates_associated :address, on: :create
   validates_associated :occupation, on: :create
@@ -17,7 +17,6 @@ class User < ApplicationRecord
 
   enum gender: { female: "female", male: "male" }
 
-  # 
   enum blood_group: {
     "A+" => "positive_a",
     "B+" => "positive_b",

@@ -5,7 +5,7 @@ require "sidekiq/web"
 Rails.application.routes.draw do
   mount Sidekiq::Web => "/sidekiq"
 
-  root to: redirect(path: '/users')
+  root to: redirect(path: "/users")
 
   resources :users do
     resource :billing_detail, only: [:show], controller: "users/billing_details"

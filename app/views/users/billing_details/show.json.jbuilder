@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # TODO: Move partials to proper controllers
 
 json.bank do

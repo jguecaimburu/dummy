@@ -28,6 +28,9 @@ Layout/LineLength:
 Metrics/ClassLength:
   Enabled: false
 
+Metrics/MethodLength:
+  Max: 25
+
 Style/Documentation:
   Enabled: false
 
@@ -36,4 +39,7 @@ Metrics/BlockLength:
     - db/*
 
 RSpec/MultipleExpectations:
+  Enabled: false
+
+Rails/I18nLocaleTexts:
   Enabled: false

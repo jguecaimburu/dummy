@@ -5,7 +5,6 @@ require "rails_helper"
 describe User::DummyJsonable do
   let(:input_data) { JSON.parse(file_fixture("dummy_json/single_user.json").read) }
 
-  # rubocop:disable RSpec/MultipleMemoizedHelpers
   describe "process_dummy_json_data" do
     let(:output_user_data) do
       {
@@ -72,13 +71,13 @@ describe User::DummyJsonable do
     it "returns the right hash" do
       processed_data = User.process_dummy_json_data(input_data)
 
-      expect(processed_data.except(:address_attributes, :bank_attributes, :occupation_attributes)).to eq(output_user_data)
+      expect(processed_data.except(:address_attributes, :bank_attributes,
+                                   :occupation_attributes)).to eq(output_user_data)
       expect(processed_data[:address_attributes]).to eq(output_address_data)
       expect(processed_data[:bank_attributes]).to eq(output_bank_data)
       expect(processed_data[:occupation_attributes]).to eq(output_occupation_data)
     end
   end
-  # rubocop:enable RSpec/MultipleMemoizedHelpers
 
   describe "create_from_dummy_json_response!" do
     let(:dummy_json_user_response) do

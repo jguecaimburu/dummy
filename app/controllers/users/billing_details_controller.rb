@@ -1,11 +1,12 @@
+# frozen_string_literal: true
+
 module Users
   class BillingDetailsController < ApplicationController
     before_action :set_user
     before_action :set_bank
     before_action :set_address
 
-    def show
-    end
+    def show; end
 
     private
 

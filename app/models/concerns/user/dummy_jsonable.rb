@@ -20,7 +20,7 @@ class User
         user = nil
         transaction do
           user = create!(data)
-          dummy_json_user_response.update!(user: user)
+          dummy_json_user_response.update!(user:)
         end
 
         user

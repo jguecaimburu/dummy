@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Users
   class AddressesController < ApplicationController
     include ActionView::RecordIdentifier
@@ -5,21 +7,20 @@ module Users
     before_action :set_user
     before_action :set_address, only: %i[show edit update]
 
-    def show
-    end
+    def show; end
 
     def new
       if @user.address
         redirect_to user_address_path(@user, @user.address)
         return
-      end 
+      end
 
       @address = Address.new(user: @user)
     end
 
-    def edit
-    end
+    def edit; end
 
+    # rubocop:disable Metrics/AbcSize
     def create
       @address = Address.new(address_params.merge(user: @user))
 
@@ -40,7 +41,9 @@ module Users
       respond_to do |format|
         if @address.update(address_params)
           format.html { redirect_to user_billing_detail_path(@user), notice: "Address was successfully updated." }
-          format.turbo_stream { redirect_to user_address_path(@user, @address), notice: "Address was successfully updated." }
+          format.turbo_stream do
+            redirect_to user_address_path(@user, @address), notice: "Address was successfully updated."
+          end
           format.json { render :show, status: :ok, location: user_address_path(@user, @address) }
         else
           format.html { render :edit, status: :unprocessable_entity }
@@ -49,6 +52,7 @@ module Users
         end
       end
     end
+    # rubocop:enable Metrics/AbcSize
 
     private
 
@@ -60,7 +64,7 @@ module Users
       @address = @user.address
     end
 
-  def address_params
+    def address_params
       params.require(:address).permit(
         :address, :city, :latitude, :longitude, :postal_code, :state
       )
