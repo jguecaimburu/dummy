@@ -2,14 +2,15 @@
   <header class="row mb-5">
     <div class="col">
       <nav class="bg-light rounded p-3 mb-1">
-        <%= link_to "New user", new_user_path %>
+        <div class="d-flex justify-content-end">
+          <%= link_to "New user", new_user_path, class: "btn btn-primary btn-lg" %>
+        </div>
       </nav>
     </div>
   </header>
   
   <div class="row justify-content-center">
     <div class="col">
-      <div class="alert-success"><%= notice %></div>
       <div id="users">
         <table class="table table-hover align-middle mb-0 bg-white border rounded">
           <thead class="bg-light">
@@ -50,10 +51,7 @@
                       <i class="bi bi-card-heading"></i>
                       <span>Details</span>
                     <% end %>
-                    <%= link_to edit_user_path(user), class: "btn btn-rounded" do %>
-                      <i class="bi bi-pencil-fill"></i>
-                      <span>Quick Edit</span>
-                    <% end %>
+                    
                     <%= button_to user, method: :delete, class: "btn btn-danger btn-rounded" do %>
                       <i class="bi bi-trash3-fill"></i>
                       <span>Delete</span>

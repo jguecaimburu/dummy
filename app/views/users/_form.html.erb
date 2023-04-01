@@ -1,17 +1,253 @@
-<%= form_with(model: user) do |form| %>
-  <% if user.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+<div class="row" id="<%= dom_id user %>">
+  <div class="col">
+    <%= form_with(model: user) do |form| %>
+      <% if user.errors.any? %>
+        <div class="alert alert-danger">
+          <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
 
-      <ul>
-        <% user.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+          <ul>
+            <% user.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      
+      <div class="row">
+        <div class="col-6 mt-4">
+          <div class="row border-bottom mx-2 mb-3 pb-2">
+            <div class="col-4">
+              <%= form.label :first_name, class: "form-label mb-0" %>
+            </div>
+            <div class="col-8">
+              <%= form.text_field :first_name, class: "form-control p-0 border-0" %>
+            </div>
+          </div>
 
+          <div class="row border-bottom mx-2 mb-3 pb-2">
+            <div class="col-4">
+              <%= form.label :last_name, class: "form-label mb-0" %>
+            </div>
+            <div class="col-8">
+              <%= form.text_field :last_name, class: "form-control p-0 border-0" %>
+            </div>
+          </div>
+
+          <div class="row border-bottom mx-2 mb-3 pb-2">
+            <div class="col-4">
+              <%= form.label :maiden_name, class: "form-label mb-0" %>
+            </div>
+            <div class="col-8">
+              <%= form.text_field :maiden_name, class: "form-control p-0 border-0" %>
+            </div>
+          </div>
+
+          <div class="row border-bottom mx-2 mb-3 pb-2">
+            <div class="col-4">
+              <%= form.label :birth_date, class: "form-label mb-0" %>
+            </div>
+            <div class="col-8">
+              <%= form.date_field :birth_date, class: "form-control p-0 border-0 w-50" %>
+            </div>
+          </div>
+
+          <div class="row border-bottom mx-2 mb-3 pb-2">
+            <div class="col-4">
+              <%= form.label :age, class: "form-label mb-0" %>
+            </div>
+            <div class="col-8">
+              <%= form.number_field :age, min: 1, step: 1, class: "form-control p-0 border-0" %>
+            </div>
+          </div>
+
+          <div class="row border-bottom mx-2 mb-3 pb-2">
+            <div class="col-4">
+              <%= form.label :gender, class: "form-label mb-0" %>
+            </div>
+            <div class="col-8 user-form-blood-group-radio">
+              <%= form.collection_radio_buttons :gender, form.object.class.genders, :second, :first, {} do |b| %>
+                <div class="form-check form-check-inline user-form-blood-group-radio">
+                  <%=  b.radio_button(class: "form-check-input") %>
+                  <%=  b.label(class: "form-check-label") %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+
+          <div class="row border-bottom mx-2 mb-3 pb-2">
+            <div class="col-4">
+              <%= form.label :blood_group, class: "form-label mb-0" %>
+            </div>
+            <div class="col-8">
+              <%= form.collection_select :blood_group, form.object.class.blood_groups, :second, :first, {}, class: "form-select p-0 border-0 w-25" %>
+            </div>
+          </div>
+
+          <div class="row border-bottom mx-2 mb-3 pb-2">
+            <div class="col-4">
+              <%= form.label :height, class: "form-label mb-0" %>
+            </div>
+            <div class="col-8">
+              <%= form.number_field :height, min: 1, step: 1, class: "form-control p-0 border-0" %>
+            </div>
+          </div>
+
+          <div class="row border-bottom mx-2 mb-3 pb-2">
+            <div class="col-4">
+              <%= form.label :weight, class: "form-label mb-0" %>
+            </div>
+            <div class="col-8">
+              <%= form.number_field :weight, min: 1, step: 1, class: "form-control p-0 border-0" %>
+            </div>
+          </div>
+
+          <div class="row border-bottom mx-2 mb-3 pb-2">
+            <div class="col-4">
+              <%= form.label :eye_color, class: "form-label mb-0" %>
+            </div>
+            <div class="col-8">
+              <%= form.text_field :eye_color, class: "form-control p-0 border-0" %>
+            </div>
+          </div>
+
+          <div class="row border-bottom mx-2 mb-3 pb-2">
+            <div class="col-4">
+              <%= form.label :hair_color, class: "form-label mb-0" %>
+            </div>
+            <div class="col-8">
+              <%= form.text_field :hair_color, class: "form-control p-0 border-0" %>
+            </div>
+          </div>
+
+          <div class="row border-bottom mx-2 mb-3 pb-2">
+            <div class="col-4">
+              <%= form.label :hair_type, class: "form-label mb-0" %>
+            </div>
+            <div class="col-8">
+              <%= form.text_field :hair_type, class: "form-control p-0 border-0" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6 mt-4">
+          <div class="row border-bottom mx-2 mb-3 pb-2">
+            <div class="col-4">
+              <%= form.label :username, class: "form-label mb-0" %>
+            </div>
+            <div class="col-8">
+              <%= form.text_field :username, class: "form-control p-0 border-0" %>
+            </div>
+          </div>
+
+          <div class="row border-bottom mx-2 mb-3 pb-2">
+            <div class="col-4">
+              <%= form.label :password, class: "form-label mb-0" %>
+            </div>
+            <div class="col-8">
+              <%= form.text_field :password, class: "form-control p-0 border-0" %>
+            </div>
+          </div>
+
+          <div class="row border-bottom mx-2 mb-3 pb-2">
+            <div class="col-4">
+              <%= form.label :image, class: "form-label mb-0" %>
+            </div>
+            <div class="col-8">
+              <%= form.text_field :image, class: "form-control p-0 border-0" %>
+            </div>
+          </div>
+
+          <div class="row border-bottom mx-2 mb-3 pb-2">
+            <div class="col-4">
+              <%= form.label :email, class: "form-label mb-0" %>
+            </div>
+            <div class="col-8">
+              <%= form.email_field :email, class: "form-control p-0 border-0" %>
+            </div>
+          </div>
+
+          <div class="row border-bottom mx-2 mb-3 pb-2">
+            <div class="col-4">
+              <%= form.label :domain, class: "form-label mb-0" %>
+            </div>
+            <div class="col-8">
+              <%= form.url_field :domain, class: "form-control p-0 border-0" %>
+            </div>
+          </div>
+
+          <div class="row border-bottom mx-2 mb-3 pb-2">
+            <div class="col-4">
+              <%= form.label :phone, class: "form-label mb-0" %>
+            </div>
+            <div class="col-8">
+              <%= form.text_field :phone, class: "form-control p-0 border-0" %>
+            </div>
+          </div>
+
+          <div class="row border-bottom mx-2 mb-3 pb-2">
+            <div class="col-4">
+              <%= form.label :university, class: "form-label mb-0" %>
+            </div>
+            <div class="col-8">
+              <%= form.text_field :university, class: "form-control p-0 border-0" %>
+            </div>
+          </div>
+
+          <div class="row border-bottom mx-2 mb-3 pb-2">
+            <div class="col-4">
+              <%= form.label :ein, class: "form-label mb-0" %>
+            </div>
+            <div class="col-8">
+              <%= form.text_field :ein, class: "form-control p-0 border-0" %>
+            </div>
+          </div>
+
+          <div class="row border-bottom mx-2 mb-3 pb-2">
+            <div class="col-4">
+              <%= form.label :ssn, class: "form-label mb-0" %>
+            </div>
+            <div class="col-8">
+              <%= form.text_field :ssn, class: "form-control p-0 border-0" %>
+            </div>
+          </div>
+
+          <div class="row border-bottom mx-2 mb-3 pb-2">
+            <div class="col-4">
+              <%= form.label :ip, class: "form-label mb-0" %>
+            </div>
+            <div class="col-8">
+              <%= form.text_field :ip, class: "form-control p-0 border-0" %>
+            </div>
+          </div>
+
+          <div class="row border-bottom mx-2 mb-3 pb-2">
+            <div class="col-4">
+              <%= form.label :mac_address, class: "form-label mb-0" %>
+            </div>
+            <div class="col-8">
+              <%= form.text_field :mac_address, class: "form-control p-0 border-0" %>
+            </div>
+          </div>
+
+          <div class="row border-bottom mx-2 mb-3 pb-2">
+            <div class="col-4">
+              <%= form.label :user_agent, class: "form-label mb-0" %>
+            </div>
+            <div class="col-8">
+              <%= form.text_field :user_agent, class: "form-control p-0 border-0" %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row justify-content-end pr-5 pt-4">
+        <div class="col-3">
+          <div class="d-flex justify-content-end gap-4">
+            <%= link_to "Cancel", :back, class: "btn btn-danger" %>
+            <%= form.submit class: "btn btn-primary" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
   <div>
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>

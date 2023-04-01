@@ -2,9 +2,9 @@
   <header class="row mb-5">
     <div class="col">
       <nav class="bg-light rounded p-3 mb-1">
-        <%= link_to users_path, class: "btn btn-light btn-lg" do %>
+        <%= link_to user_occupation_path(@user, @occupation), class: "btn btn-light btn-lg" do %>
           <i class="bi bi-arrow-left"></i>
-          <span>Back to Users</span>
+          <span>Back</span>
         <% end %>
       </nav>
     </div>
@@ -46,7 +46,7 @@
                       </div>
                   </div>
                   <div class="col-8 mt-4">
-                    <%= render @occupation %>
+                    <%= render "form", occupation: @occupation %>
                   </div>
                 </div>
               </div>

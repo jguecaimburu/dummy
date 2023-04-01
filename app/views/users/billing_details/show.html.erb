@@ -9,7 +9,6 @@
 
   <div class="row justify-content-center">
     <div class="col">
-      <div class="alert-success"><%= notice %></div>
       <div id="user">
         <div class="container px-0">
           <div class="row">
@@ -41,8 +40,10 @@
                               class: "nav-link active",
                               role: "tab", aria: { selected: true } %>
                         
+                        <% occupation= @user.occupation %>
+                        <% occupation_link = occupation.nil? ? new_user_occupation_path(@user) : user_occupation_path(@user, occupation) %>
                         <%= link_to "Company",
-                              user_occupation_path(@user),
+                              occupation_link,
                               class: "nav-link", 
                               role: "tab", aria: { selected: false } %>
                               

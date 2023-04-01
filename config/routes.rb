@@ -9,10 +9,9 @@ Rails.application.routes.draw do
 
   resources :users do
     resource :billing_detail, only: [:show], controller: "users/billing_details"
-    resource :occupation, only: [:show], controller: "users/occupations"
+    resources :occupations, only: %i[show new create edit update], controller: "users/occupations"
   end
 
-  resources :banks
-  resources :addresses
-  resources :occupations
+  resources :banks, only: %i[show new create edit update]
+  resources :addresses, only: %i[show new create edit update]
 end

@@ -1,2 +1,235 @@
-<div id="<%= dom_id user %>">
+<div class="row" id="<%= dom_id user %>">
+  <div class="col">
+    <% if notice %>
+      <div class="alert alert-success"><%= notice %></div>
+    <% end %>
+    <div class="row">
+      <div class="col-6 mt-4">
+        <div class="row border-bottom mx-2 mb-3 pb-2">
+          <div class="col-4">
+            <p class="mb-0"><%= model_human_attribute_name(:first_name) %></p>
+          </div>
+          <div class="col-8">
+            <p class="text-muted mb-0"><%= user.first_name %></p>
+          </div>
+        </div>
+
+        <div class="row border-bottom mx-2 mb-3 pb-2">
+          <div class="col-4">
+            <p class="mb-0"><%= model_human_attribute_name(:last_name) %></p>
+          </div>
+          <div class="col-8">
+            <p class="text-muted mb-0"><%= user.last_name %></p>
+          </div>
+        </div>
+
+        <div class="row border-bottom mx-2 mb-3 pb-2">
+          <div class="col-4">
+            <p class="mb-0"><%= model_human_attribute_name(:maiden_name) %></p>
+          </div>
+          <div class="col-8">
+            <p class="text-muted mb-0"><%= user.maiden_name %></p>
+          </div>
+        </div>
+
+        <div class="row border-bottom mx-2 mb-3 pb-2">
+          <div class="col-4">
+            <p class="mb-0"><%= model_human_attribute_name(:birth_date) %></p>
+          </div>
+          <div class="col-8">
+            <p class="text-muted mb-0"><%= user.birth_date %></p>
+          </div>
+        </div>
+
+        <div class="row border-bottom mx-2 mb-3 pb-2">
+          <div class="col-4">
+            <p class="mb-0"><%= model_human_attribute_name(:age) %></p>
+          </div>
+          <div class="col-8">
+            <p class="text-muted mb-0"><%= user.age %></p>
+          </div>
+        </div>
+
+        <div class="row border-bottom mx-2 mb-3 pb-2">
+          <div class="col-4">
+            <p class="mb-0"><%= model_human_attribute_name(:gender) %></p>
+          </div>
+          <div class="col-8">
+            <p class="text-muted mb-0"><%= user.gender %></p>
+          </div>
+        </div>
+
+        <div class="row border-bottom mx-2 mb-3 pb-2">
+          <div class="col-4">
+            <p class="mb-0"><%= model_human_attribute_name(:blood_group) %></p>
+          </div>
+          <div class="col-8">
+            <p class="text-muted mb-0"><%= user.blood_group %></p>
+          </div>
+        </div>
+
+        <div class="row border-bottom mx-2 mb-3 pb-2">
+          <div class="col-4">
+            <p class="mb-0"><%= model_human_attribute_name(:height) %></p>
+          </div>
+          <div class="col-8">
+            <p class="text-muted mb-0"><%= user.height %></p>
+          </div>
+        </div>
+
+        <div class="row border-bottom mx-2 mb-3 pb-2">
+          <div class="col-4">
+            <p class="mb-0"><%= model_human_attribute_name(:weight) %></p>
+          </div>
+          <div class="col-8">
+            <p class="text-muted mb-0"><%= user.weight %></p>
+          </div>
+        </div>
+
+        <div class="row border-bottom mx-2 mb-3 pb-2">
+          <div class="col-4">
+            <p class="mb-0"><%= model_human_attribute_name(:eye_color) %></p>
+          </div>
+          <div class="col-8">
+            <p class="text-muted mb-0"><%= user.eye_color %></p>
+          </div>
+        </div>
+
+        <div class="row border-bottom mx-2 mb-3 pb-2">
+          <div class="col-4">
+            <p class="mb-0"><%= model_human_attribute_name(:hair_color) %></p>
+          </div>
+          <div class="col-8">
+            <p class="text-muted mb-0"><%= user.hair_color %></p>
+          </div>
+        </div>
+
+        <div class="row border-bottom mx-2 mb-3 pb-2">
+          <div class="col-4">
+            <p class="mb-0"><%= model_human_attribute_name(:hair_type) %></p>
+          </div>
+          <div class="col-8">
+            <p class="text-muted mb-0"><%= user.hair_type %></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 mt-4">
+        <div class="row border-bottom mx-2 mb-3 pb-2">
+          <div class="col-4">
+            <p class="mb-0"><%= model_human_attribute_name(:username) %></p>
+          </div>
+          <div class="col-8">
+            <p class="text-muted mb-0"><%= user.username %></p>
+          </div>
+        </div>
+
+        <div class="row border-bottom mx-2 mb-3 pb-2">
+          <div class="col-4">
+            <p class="mb-0"><%= model_human_attribute_name(:password) %></p>
+          </div>
+          <div class="col-8">
+            <p class="text-muted mb-0"><%= user.password %></p>
+          </div>
+        </div>
+
+        <div class="row border-bottom mx-2 mb-3 pb-2">
+          <div class="col-4">
+            <p class="mb-0"><%= model_human_attribute_name(:image) %></p>
+          </div>
+          <div class="col-8">
+            <p class="text-muted mb-0"><%= user.image %></p>
+          </div>
+        </div>
+
+        <div class="row border-bottom mx-2 mb-3 pb-2">
+          <div class="col-4">
+            <p class="mb-0"><%= model_human_attribute_name(:email) %></p>
+          </div>
+          <div class="col-8">
+            <p class="text-muted mb-0"><%= user.email %></p>
+          </div>
+        </div>
+
+        <div class="row border-bottom mx-2 mb-3 pb-2">
+          <div class="col-4">
+            <p class="mb-0"><%= model_human_attribute_name(:domain) %></p>
+          </div>
+          <div class="col-8">
+            <p class="text-muted mb-0"><%= user.domain %></p>
+          </div>
+        </div>
+
+        <div class="row border-bottom mx-2 mb-3 pb-2">
+          <div class="col-4">
+            <p class="mb-0"><%= model_human_attribute_name(:phone) %></p>
+          </div>
+          <div class="col-8">
+            <p class="text-muted mb-0"><%= user.phone %></p>
+          </div>
+        </div>
+
+        <div class="row border-bottom mx-2 mb-3 pb-2">
+          <div class="col-4">
+            <p class="mb-0"><%= model_human_attribute_name(:university) %></p>
+          </div>
+          <div class="col-8">
+            <p class="text-muted mb-0"><%= user.university %></p>
+          </div>
+        </div>
+
+        <div class="row border-bottom mx-2 mb-3 pb-2">
+          <div class="col-4">
+            <p class="mb-0"><%= model_human_attribute_name(:ein) %></p>
+          </div>
+          <div class="col-8">
+            <p class="text-muted mb-0"><%= user.ein %></p>
+          </div>
+        </div>
+
+        <div class="row border-bottom mx-2 mb-3 pb-2">
+          <div class="col-4">
+            <p class="mb-0"><%= model_human_attribute_name(:ssn) %></p>
+          </div>
+          <div class="col-8">
+            <p class="text-muted mb-0"><%= user.ssn %></p>
+          </div>
+        </div>
+
+        <div class="row border-bottom mx-2 mb-3 pb-2">
+          <div class="col-4">
+            <p class="mb-0"><%= model_human_attribute_name(:ip) %></p>
+          </div>
+          <div class="col-8">
+            <p class="text-muted mb-0"><%= user.ip %></p>
+          </div>
+        </div>
+
+        <div class="row border-bottom mx-2 mb-3 pb-2">
+          <div class="col-4">
+            <p class="mb-0"><%= model_human_attribute_name(:mac_address) %></p>
+          </div>
+          <div class="col-8">
+            <p class="text-muted mb-0"><%= user.mac_address %></p>
+          </div>
+        </div>
+
+        <div class="row border-bottom mx-2 mb-3 pb-2">
+          <div class="col-4">
+            <p class="mb-0"><%= model_human_attribute_name(:user_agent) %></p>
+          </div>
+          <div class="col-8">
+            <p class="text-muted mb-0"><%= user.user_agent %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-end pr-5 pt-4">
+      <div class="col-3">
+        <div class="d-flex justify-content-end">
+          <%= link_to "Edit", edit_user_path(user), class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+  <div>
 </div>

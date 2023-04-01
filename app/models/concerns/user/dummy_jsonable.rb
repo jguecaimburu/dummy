@@ -43,6 +43,9 @@ class User
         when :hair
           processed_data[:hair_color] = value[:color]
           processed_data[:hair_type] = value[:type]
+        when :blood_group
+          # NOTE: DummyJson blood type field uses the minus character (codepoint 8722) which could be confusing
+          processed_data[:blood_group] = value.gsub("−", "-")
         when :address
           coordinates = value[:coordinates]
           address_data = value.except(:coordinates)

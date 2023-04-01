@@ -20,7 +20,7 @@ describe User::DummyJsonable do
         password: "9uQFF1Lh",
         birth_date: "2000-12-25",
         image: "https://robohash.org/hicveldicta.png",
-        blood_group: "A−",
+        blood_group: "A-",
         height: 189,
         weight: 75.4,
         eye_color: "Green",
