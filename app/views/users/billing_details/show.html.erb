@@ -2,7 +2,10 @@
   <header class="row mb-5">
     <div class="col">
       <nav class="bg-light rounded p-3 mb-1">
-        <%= link_to "New user", new_user_path %>
+        <%= link_to users_path, class: "btn btn-light btn-lg" do %>
+          <i class="bi bi-arrow-left"></i>
+          <span>Back to Users</span>
+        <% end %>
       </nav>
     </div>
   </header>
@@ -51,6 +54,7 @@
                     </div>
 
                     <div class="col mt-4">
+                      <% unless @bank.nil? %>
                       <% @bank_class = Bank %>
                       <h2 class="h4 mb-4"><%= @bank_class.model_name.human %></h2>
 
@@ -102,69 +106,17 @@
                       <div class="d-flex justify-content-end mt-5">
                         <button type="button" class="btn btn-primary">Edit</button>
                       </div>
+
+                      <% end %>
                     </div>
 
                     <div class="col mt-4">
-                      <% @address_class = Address %>
-                      <h2 class="h4 mb-4"><%= @address_class.model_name.human %></h2>
-
-                      <div class="row border-bottom mx-2 mb-3 pb-2">
-                        <div class="col-sm-4">
-                          <p class="mb-0"><%= @address_class.human_attribute_name(:address) %></p>
-                        </div>
-                        <div class="col-sm-8">
-                          <p class="text-muted mb-0"><%= @address.address %></p>
-                        </div>
-                      </div>
-
-                      <div class="row border-bottom mx-2 mb-3 pb-2">
-                        <div class="col-sm-4">
-                          <p class="mb-0"><%= @address_class.human_attribute_name(:city) %></p>
-                        </div>
-                        <div class="col-sm-8">
-                          <p class="text-muted mb-0"><%= @address.city %></p>
-                        </div>
-                      </div>
-
-                      <div class="row border-bottom mx-2 mb-3 pb-2">
-                        <div class="col-sm-4">
-                          <p class="mb-0"><%= @address_class.human_attribute_name(:state) %></p>
-                        </div>
-                        <div class="col-sm-8">
-                          <p class="text-muted mb-0"><%= @address.state %></p>
-                        </div>
-                      </div>
-
-                      <div class="row border-bottom mx-2 mb-3 pb-2">
-                        <div class="col-sm-4">
-                          <p class="mb-0"><%= @address_class.human_attribute_name(:postal_code) %></p>
-                        </div>
-                        <div class="col-sm-8">
-                          <p class="text-muted mb-0"><%= @address.postal_code %></p>
-                        </div>
-                      </div>
-
-                      <div class="row border-bottom mx-2 mb-3 pb-2">
-                        <div class="col-sm-4">
-                          <p class="mb-0"><%= @address_class.human_attribute_name(:latitude) %></p>
-                        </div>
-                        <div class="col-sm-8">
-                          <p class="text-muted mb-0"><%= @address.latitude %></p>
-                        </div>
-                      </div>
-
-                      <div class="row border-bottom mx-2 mb-3 pb-2">
-                        <div class="col-sm-4">
-                          <p class="mb-0"><%= @address_class.human_attribute_name(:longitude) %></p>
-                        </div>
-                        <div class="col-sm-8">
-                          <p class="text-muted mb-0"><%= @address.longitude %></p>
-                        </div>
-                      </div>
-
-                      <div class="d-flex justify-content-end">
-                        <button type="button" class="btn btn-primary">Edit</button>
-                      </div>
+                      <% if @address %>
+                        <%= render "users/addresses/address", address: @address %>
+                      <% else %>
+                        <% @address = @user.build_address %>
+                        <%= render "users/addresses/form", address: @address %>
+                      <% end %>
                     </div>
                   </div>
                 </div>

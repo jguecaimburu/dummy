@@ -5,7 +5,7 @@ json.bank do
 end
 
 json.address do
-  json.partial! "users/billing_details/address", address: @address
+  json.partial! "users/addresses/address", address: @address
 end
 
 json.url user_billing_detail_url(@user, format: :json)

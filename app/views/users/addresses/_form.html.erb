@@ -1,0 +1,86 @@
+<%= turbo_frame_tag dom_id(address) do %>
+  <div class="row">
+    <div class="col">
+      <% @address_class = Address %>
+      <h2 class="h4 mb-4"><%= @address_class.model_name.human %></h2>
+      
+      <% url = address.persisted? ? user_address_path(address.user, address) : user_addresses_path(address.user) %>
+      <%= form_with(model: address, url: url) do |form| %>
+        <% if address.errors.any? %>
+          <div class="alert alert-danger">
+            <h2><%= pluralize(address.errors.count, "error") %> prohibited this address from being saved:</h2>
+
+            <ul>
+              <% address.errors.each do |error| %>
+                <li><%= error.full_message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+        
+        <div class="row border-bottom mx-2 mb-3 pb-2">
+          <div class="col-4">
+            <%= form.label :address, class: "form-label mb-0" %>
+          </div>
+          <div class="col-8">
+            <%= form.text_field :address, class: "form-control p-0 border-0" %>
+          </div>
+        </div>
+
+        <div class="row border-bottom mx-2 mb-3 pb-2">
+          <div class="col-4">
+            <%= form.label :city, class: "form-label mb-0" %>
+          </div>
+          <div class="col-8">
+            <%= form.text_field :city, class: "form-control p-0 border-0" %>
+          </div>
+        </div>
+
+        <div class="row border-bottom mx-2 mb-3 pb-2">
+          <div class="col-4">
+            <%= form.label :state, class: "form-label mb-0" %>
+          </div>
+          <div class="col-8">
+            <%= form.text_field :state, class: "form-control p-0 border-0" %>
+          </div>
+        </div>
+
+        <div class="row border-bottom mx-2 mb-3 pb-2">
+          <div class="col-4">
+            <%= form.label :postal_code, class: "form-label mb-0" %>
+          </div>
+          <div class="col-8">
+            <%= form.text_field :postal_code, class: "form-control p-0 border-0" %>
+          </div>
+        </div>
+
+        <div class="row border-bottom mx-2 mb-3 pb-2">
+          <div class="col-4">
+            <%= form.label :latitude, class: "form-label mb-0" %>
+          </div>
+          <div class="col-8">
+            <%= form.number_field :latitude, step: 0.0000001, class: "form-control p-0 border-0" %>
+          </div>
+        </div>
+
+        <div class="row border-bottom mx-2 mb-3 pb-2">
+          <div class="col-4">
+            <%= form.label :longitude, class: "form-label mb-0" %>
+          </div>
+          <div class="col-8">
+            <%= form.number_field :longitude, step: 0.0000001, class: "form-control p-0 border-0" %>
+          </div>
+        </div>
+
+        <div class="row justify-content-end pr-5 pt-4">
+          <div class="col-3">
+            <div class="d-flex justify-content-end gap-4">
+              <%= link_to "Cancel", :back, class: "btn btn-danger" %>
+              <%= form.submit class: "btn btn-primary" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <div>
+  </div>
+<% end %>

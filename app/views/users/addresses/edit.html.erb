@@ -1,0 +1,59 @@
+<article class="container-fluid content">
+  <header class="row mb-5">
+    <div class="col">
+      <nav class="bg-light rounded p-3 mb-1">
+        <%= link_to user_address_path(@user, @address), class: "btn btn-light btn-lg" do %>
+          <i class="bi bi-arrow-left"></i>
+          <span>Back</span>
+        <% end %>
+      </nav>
+    </div>
+  </header>
+
+  <div class="row justify-content-center">
+    <div class="col">
+      <div class="container px-0">
+        <div class="row">
+          <div class="col">
+            <div class="card mb-4">
+              <div class="card-body text-center user-card-body">
+                
+                <div class="row align-items-start">
+                  <div class="col-4">
+                    <%= render "users/user_profile", user: @user %>
+                    
+                    <div
+                        class="nav flex-column nav-pills text-center"
+                        id="v-pills-tab"
+                        role="tablist"
+                        aria-orientation="vertical">
+
+                        <%= link_to "Personal Data",
+                              @user,
+                              class: "nav-link",
+                              role: "tab", aria: { selected: false } %>
+
+                        <%= link_to "Billing Details",
+                              user_billing_detail_path(@user),
+                              class: "nav-link",
+                              role: "tab", aria: { selected: false } %>
+                        
+                        <%= link_to "Company",
+                              "#",
+                              class: "nav-link active",
+                              role: "tab", aria: { selected: true } %>
+                              
+                      </div>
+                  </div>
+                  <div class="col-8 mt-4">
+                    <%= render "form", address: @address %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
