@@ -1,0 +1,155 @@
+<article class="container-fluid content">
+  <header class="row mb-5">
+    <div class="col">
+      <nav class="bg-light rounded p-3 mb-1">
+        <%= link_to "New user", new_user_path %>
+      </nav>
+    </div>
+  </header>
+
+  <div class="row justify-content-center">
+    <div class="col">
+      <div class="alert-success"><%= notice %></div>
+      <div id="user">
+        <div class="container px-0">
+          <div class="row">
+            <div class="col">
+              <div class="card mb-4">
+                <div class="card-body text-center user-card-body">
+                  
+                  <div class="row align-items-start">
+                    <div class="col-4">
+                      <div>
+                        <%= image_tag(@user.image, alt: "avatar", class: "rounded-circle img-fluid user-profile-picture") %>
+                        <p class="h3 mt-3"><%= @user.name %></p>
+                        <p><%= @user.email %></p>
+                      </div>
+                      
+                      <div
+                        class="nav flex-column nav-pills text-center"
+                        id="v-pills-tab"
+                        role="tablist"
+                        aria-orientation="vertical">
+
+                        <%= link_to "Personal Data",
+                              @user,
+                              class: "nav-link",
+                              role: "tab", aria: { selected: false } %>
+
+                        <%= link_to "Billing Details",
+                              user_billing_detail_path(@user),
+                              class: "nav-link",
+                              role: "tab", aria: { selected: false } %>
+                        
+                        <%= link_to "Company",
+                              "#",
+                              class: "nav-link active",
+                              role: "tab", aria: { selected: true } %>
+                              
+                      </div>
+                    </div>
+
+                    <div class="col-8 mt-4">
+                      <div class="row justify-content-center">
+                        <div class="col-8">
+                          <div class="row border-bottom mx-2 mb-3 pb-2">
+                            <div class="col-sm-4">
+                              <p class="mb-0"><%= model_human_attribute_name(:company_name) %></p>
+                            </div>
+                            <div class="col-sm-8">
+                              <p class="text-muted mb-0"><%= @occupation.company_name %></p>
+                            </div>
+                          </div>
+                          
+                          <div class="row border-bottom mx-2 mb-3 pb-2">
+                            <div class="col-sm-4">
+                              <p class="mb-0"><%= model_human_attribute_name(:title) %></p>
+                            </div>
+                            <div class="col-sm-8">
+                              <p class="text-muted mb-0"><%= @occupation.title %></p>
+                            </div>
+                          </div>
+
+                          <div class="row border-bottom mx-2 mb-3 pb-2">
+                            <div class="col-sm-4">
+                              <p class="mb-0"><%= model_human_attribute_name(:department) %></p>
+                            </div>
+                            <div class="col-sm-8">
+                              <p class="text-muted mb-0"><%= @occupation.department %></p>
+                            </div>
+                          </div>
+
+                          <div class="row border-bottom mx-2 mb-3 pb-2">
+                            <div class="col-sm-4">
+                              <p class="mb-0"><%= model_human_attribute_name(:address) %></p>
+                            </div>
+                            <div class="col-sm-8">
+                              <p class="text-muted mb-0"><%= @occupation.address %></p>
+                            </div>
+                          </div>
+
+                          <div class="row border-bottom mx-2 mb-3 pb-2">
+                            <div class="col-sm-4">
+                              <p class="mb-0"><%= model_human_attribute_name(:city) %></p>
+                            </div>
+                            <div class="col-sm-8">
+                              <p class="text-muted mb-0"><%= @occupation.city %></p>
+                            </div>
+                          </div>
+
+                          <div class="row border-bottom mx-2 mb-3 pb-2">
+                            <div class="col-sm-4">
+                              <p class="mb-0"><%= model_human_attribute_name(:state) %></p>
+                            </div>
+                            <div class="col-sm-8">
+                              <p class="text-muted mb-0"><%= @occupation.state %></p>
+                            </div>
+                          </div>
+
+                          <div class="row border-bottom mx-2 mb-3 pb-2">
+                            <div class="col-sm-4">
+                              <p class="mb-0"><%= model_human_attribute_name(:postal_code) %></p>
+                            </div>
+                            <div class="col-sm-8">
+                              <p class="text-muted mb-0"><%= @occupation.postal_code %></p>
+                            </div>
+                          </div>
+
+                          <div class="row border-bottom mx-2 mb-3 pb-2">
+                            <div class="col-sm-4">
+                              <p class="mb-0"><%= model_human_attribute_name(:latitude) %></p>
+                            </div>
+                            <div class="col-sm-8">
+                              <p class="text-muted mb-0"><%= @occupation.latitude %></p>
+                            </div>
+                          </div>
+
+                          <div class="row border-bottom mx-2 mb-3 pb-2">
+                            <div class="col-sm-4">
+                              <p class="mb-0"><%= model_human_attribute_name(:longitude) %></p>
+                            </div>
+                            <div class="col-sm-8">
+                              <p class="text-muted mb-0"><%= @occupation.longitude %></p>
+                            </div>
+                          </div>
+                          
+                          <div class="row justify-content-end pr-5 pt-4">
+                            <div class="col-3">
+                              <div class="d-flex justify-content-end">
+                                <button type="button" class="btn btn-primary">Edit</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>

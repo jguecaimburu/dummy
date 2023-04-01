@@ -1,8 +1,12 @@
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
 
+html {
+    scrollbar-gutter: stable;
+}
+
 .content {
-    padding: 50px 15% 5% 15%;
+    padding: 50px 15% 50px 15%;
 }
 
 .users-table-header-name {
@@ -11,4 +15,8 @@
 
 .user-profile-picture {
     width: 250px;
+}
+
+.user-card-body {
+    min-height: 75vh;
 }

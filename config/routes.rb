@@ -9,9 +9,10 @@ Rails.application.routes.draw do
 
   resources :users do
     resource :billing_detail, only: [:show], controller: "users/billing_details"
-    resource :company_detail, only: [:show], controller: "users/company_details"
+    resource :occupation, only: [:show], controller: "users/occupations"
   end
 
-  resources :addresses
   resources :banks
+  resources :addresses
+  resources :occupations
 end
