@@ -1,18 +1,24 @@
 module Users
   class BillingDetailsController < ApplicationController
     before_action :set_user
+    before_action :set_bank
+    before_action :set_address
 
     def show
-      # Remove
-      # In view should consider if user has any bank or company member to decide if button to add or partial is rendered
-      @bank = @user.bank
-      @address = @user.address
     end
 
     private
 
     def set_user
       @user = User.find(params[:user_id])
+    end
+
+    def set_bank
+      @bank = @user.bank
+    end
+
+    def set_address
+      @address = @user.address
     end
   end
 end
