@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  include PgSearch::Model
   include DummyJsonable
 
   has_one :bank, dependent: :destroy
@@ -27,6 +28,17 @@ class User < ApplicationRecord
     "AB-" => "negative_ab",
     "O-" => "negative_zero"
   }
+
+  scope :not_deleted, ->{ where(soft_deleted: false) }
+  scope :deleted, ->{ where(soft_deleted: true) }
+
+  scope :by_age, ->(from:, to:){ where(age: (from.to_i..to.to_i)) }
+  MIN_AGE = 1
+  MAX_AGE = 125
+
+  pg_search_scope :search_by_full_name_and_email,
+                  against: [:first_name, :last_name, :maiden_name, :email],
+                  using: { tsearch: { prefix: true } }
 
   def name
     [first_name, last_name].join(" ")

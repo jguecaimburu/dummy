@@ -11,7 +11,9 @@
   
   <div class="row justify-content-center">
     <div class="col">
-      <div id="users">
+      <%= render "user_search", user_search: @user_search %>
+      
+      <div class="row" id="users">
         <table class="table table-hover align-middle mb-0 bg-white border rounded">
           <thead class="bg-light">
             <tr>

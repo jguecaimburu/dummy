@@ -1,0 +1,60 @@
+<div class="row mb-5">
+  <div class="col">
+    <%= form_with model: @user_search, url: users_path, method: :get do |form| %>
+      <div class="row align-items-end">
+        <div class="col-4">
+          <div class="row">
+            <div class="col-4">
+              <%= form.label :search_term, class: "form-label mb-0" %>
+            </div>
+            <div class="col-8 border-bottom">
+              <%= form.text_field :search_term, class: "form-control p-0 border-0" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-3">
+          <div class="row align-items-end">
+            <div class="col-4">
+              <%= form.label :gender, class: "form-label mb-0" %>
+            </div>
+            <div class="col-8 user-form-blood-group-radio">
+              <%= form.collection_radio_buttons :gender, form.object.class.genders, :second, :first, {} do |b| %>
+                <div class="form-check form-check-inline user-form-blood-group-radio">
+                  <%=  b.radio_button(class: "form-check-input") %>
+                  <%=  b.label(class: "form-check-label") %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-2">
+          <div class="row align-items-end">
+            <div class="col-7">
+              <%= form.label :from_age, class: "form-label mb-0" %>
+            </div>
+            <div class="col-5 border-bottom">
+              <%= form.number_field :from_age, min: 1, max: 125, step: 1, class: "form-control p-0 border-0" %>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-2">
+          <div class="row align-items-end">
+            <div class="col-7">
+              <%= form.label :to_age, class: "form-label mb-0" %>
+            </div>
+            <div class="col-5 border-bottom">
+              <%= form.number_field :to_age, min: 1, max: 125, step: 1, class: "form-control p-0 border-0" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-1">
+          <%= form.submit "Search", class: "btn btn-dark" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

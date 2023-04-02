@@ -4,7 +4,8 @@ class UsersController < ApplicationController
   before_action :set_user, only: %i[show edit update destroy]
 
   def index
-    @pagy, @users = pagy(User.all)
+    @user_search = UserSearch.new(user_search_params)
+    @pagy, @users = pagy(@user_search.users)
   end
 
   def show; end
@@ -63,5 +64,11 @@ class UsersController < ApplicationController
       :height, :weight, :eye_color, :hair_color, :hair_type, :university,
       :domain, :mac_address, :ip, :ein, :ssn, :user_agent
     )
+  end
+
+  def user_search_params
+    return {} unless params.include?(:user_search)
+    
+    params.require(:user_search).permit(:search_term, :from_age, :to_age, :gender)
   end
 end
