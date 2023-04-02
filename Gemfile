@@ -54,10 +54,13 @@ gem "bootsnap", require: false
 # gem "image_processing", "~> 1.2"
 
 # Use Sidekiq to process background jobs
-gem "sidekiq"
+gem "sidekiq", "~> 7.0"
 
 # Use Faraday for http requests
-gem "faraday"
+gem "faraday", "~> 2"
+
+# Use Pagy to paginate
+gem "pagy", "~> 6.0"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

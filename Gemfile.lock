@@ -136,6 +136,7 @@ GEM
     nio4r (2.5.8)
     nokogiri (1.14.2-x86_64-linux)
       racc (~> 1.4)
+    pagy (6.0.3)
     parallel (1.22.1)
     parser (3.2.1.1)
       ast (~> 2.4.1)
@@ -277,9 +278,10 @@ DEPENDENCIES
   capybara
   cssbundling-rails
   debug
-  faraday
+  faraday (~> 2)
   jbuilder
   jsbundling-rails
+  pagy (~> 6.0)
   pg (~> 1.1)
   puma (~> 5.0)
   rack-mini-profiler
@@ -290,7 +292,7 @@ DEPENDENCIES
   rubocop-rails
   rubocop-rspec
   selenium-webdriver
-  sidekiq
+  sidekiq (~> 7.0)
   sprockets-rails
   stimulus-rails
   turbo-rails

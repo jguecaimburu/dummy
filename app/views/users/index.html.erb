@@ -3,7 +3,7 @@
     <div class="col">
       <nav class="bg-light rounded p-3 mb-1">
         <div class="d-flex justify-content-end">
-          <%= link_to "New user", new_user_path, class: "btn btn-primary btn-lg" %>
+          <%= link_to "New user", new_user_path, class: "btn btn-primary" %>
         </div>
       </nav>
     </div>
@@ -22,46 +22,14 @@
             </tr>
           </thead>
           <tbody>
-            <% @users.each do |user| %>
-              <tr>
-                <td>
-                  <div class="d-flex align-items-center gap-3">
-                    <div>
-                      <%= image_tag(user.image, height: 45, width: 45, alt: user.name, class: "rounded") %>
-                    </div>
-                    <div>
-                      <p class="fw-bold mb-1"><%= user.name %></p>
-                      <p class="text-muted mb-0"><%= user.email %></p>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <div class="d-flex align-items-center">
-                    <p class="mb-0"><%= user.age %></p>
-                  </div>
-                </td>
-                <td>
-                  <div class="d-flex align-items-center">
-                    <p class="mb-0"><%= user.gender.to_s.capitalize  %></p>
-                  </div>
-                </td>
-                <td>
-                  <div class="d-flex gap-2 align-items-center justify-content-end">
-                    <%= link_to user, class: "btn btn-rounded" do %>
-                      <i class="bi bi-card-heading"></i>
-                      <span>Details</span>
-                    <% end %>
-                    
-                    <%= button_to user, method: :delete, class: "btn btn-danger btn-rounded" do %>
-                      <i class="bi bi-trash3-fill"></i>
-                      <span>Delete</span>
-                    <% end %>
-                  </div>
-                </td>
-              </tr>
-            <% end %>
+            <%= render partial: "user_row", collection: @users, as: :user %>
           </tbody>
         </table>
+        <div class="row pt-3 pr-2">
+          <div col="col">
+            <%== pagy_bootstrap_nav(@pagy) %>
+          </div>
+        </div>
       </div>
     </div>
   </div>
