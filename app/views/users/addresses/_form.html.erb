@@ -1,8 +1,7 @@
 <%= turbo_frame_tag dom_id(address) do %>
   <div class="row">
     <div class="col">
-      <% @address_class = Address %>
-      <h2 class="h4 mb-4"><%= @address_class.model_name.human %></h2>
+      <h2 class="h4 mb-4"><%= address.class.model_name.human %></h2>
       
       <% url = address.persisted? ? user_address_path(address.user, address) : user_addresses_path(address.user) %>
       <%= form_with(model: address, url: url) do |form| %>
@@ -81,6 +80,6 @@
           </div>
         </div>
       <% end %>
-    <div>
+    </div>
   </div>
 <% end %>

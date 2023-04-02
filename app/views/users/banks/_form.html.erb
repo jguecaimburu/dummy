@@ -1,0 +1,76 @@
+<%= turbo_frame_tag dom_id(bank) do %>
+  <div class="row">
+    <div class="col">
+      <h2 class="h4 mb-4"><%= bank.class.model_name.human %></h2>
+      
+      <% url = bank.persisted? ? user_bank_path(bank.user, bank) : user_banks_path(bank.user) %>
+      <%= form_with(model: bank, url: url) do |form| %>
+        <% if bank.errors.any? %>
+          <div class="alert alert-danger">
+            <h2><%= pluralize(bank.errors.count, "error") %> prohibited this bank from being saved:</h2>
+
+            <ul>
+              <% address.errors.each do |error| %>
+                <li><%= error.full_message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+        
+        <div class="row border-bottom mx-2 mb-3 pb-2">
+          <div class="col-4">
+            <%= form.label :iban, class: "form-label mb-0" %>
+          </div>
+          <div class="col-8">
+            <%= form.text_field :iban, class: "form-control p-0 border-0" %>
+          </div>
+        </div>
+
+        <div class="row border-bottom mx-2 mb-3 pb-2">
+          <div class="col-4">
+            <%= form.label :currency, class: "form-label mb-0" %>
+          </div>
+          <div class="col-8">
+            <%= form.text_field :currency, class: "form-control p-0 border-0" %>
+          </div>
+        </div>
+
+        <div class="row border-bottom mx-2 mb-3 pb-2">
+          <div class="col-4">
+            <%= form.label :card_type, class: "form-label mb-0" %>
+          </div>
+          <div class="col-8">
+            <%= form.text_field :card_type, class: "form-control p-0 border-0" %>
+          </div>
+        </div>
+
+        <div class="row border-bottom mx-2 mb-3 pb-2">
+          <div class="col-4">
+            <%= form.label :card_number, class: "form-label mb-0" %>
+          </div>
+          <div class="col-8">
+            <%= form.text_field :card_number, class: "form-control p-0 border-0" %>
+          </div>
+        </div>
+
+        <div class="row border-bottom mx-2 mb-3 pb-2">
+          <div class="col-4">
+            <%= form.label :card_expire, class: "form-label mb-0" %>
+          </div>
+          <div class="col-8">
+            <%= form.text_field :card_expire, class: "form-control p-0 border-0" %>
+          </div>
+        </div>
+
+        <div class="row justify-content-end pr-5 pt-4">
+          <div class="col-3">
+            <div class="d-flex justify-content-end gap-4">
+              <%= link_to "Cancel", :back, class: "btn btn-danger" %>
+              <%= form.submit class: "btn btn-primary" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

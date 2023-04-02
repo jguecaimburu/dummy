@@ -54,59 +54,11 @@
                     </div>
 
                     <div class="col mt-4">
-                      <% unless @bank.nil? %>
-                      <% @bank_class = Bank %>
-                      <h2 class="h4 mb-4"><%= @bank_class.model_name.human %></h2>
-
-                      <div class="row border-bottom mx-2 mb-3 pb-2">
-                        <div class="col-sm-4">
-                          <p class="mb-0"><%= @bank_class.human_attribute_name(:iban) %></p>
-                        </div>
-                        <div class="col-sm-8">
-                          <p class="text-muted mb-0"><%= @bank.iban %></p>
-                        </div>
-                      </div>
-
-                      <div class="row border-bottom mx-2 mb-3 pb-2">
-                        <div class="col-sm-4">
-                          <p class="mb-0"><%= @bank_class.human_attribute_name(:currency) %></p>
-                        </div>
-                        <div class="col-sm-8">
-                          <p class="text-muted mb-0"><%= @bank.currency %></p>
-                        </div>
-                      </div>
-
-                      <div class="row border-bottom mx-2 mb-3 pb-2">
-                        <div class="col-sm-4">
-                          <p class="mb-0"><%= @bank_class.human_attribute_name(:card_type) %></p>
-                        </div>
-                        <div class="col-sm-8">
-                          <p class="text-muted mb-0"><%= @bank.card_type %></p>
-                        </div>
-                      </div>
-
-                      <div class="row border-bottom mx-2 mb-3 pb-2">
-                        <div class="col-sm-4">
-                          <p class="mb-0"><%= @bank_class.human_attribute_name(:card_number) %></p>
-                        </div>
-                        <div class="col-sm-8">
-                          <p class="text-muted mb-0"><%= @bank.card_number %></p>
-                        </div>
-                      </div>
-
-                      <div class="row border-bottom mx-2 pb-2">
-                        <div class="col-sm-4">
-                          <p class="mb-0"><%= @bank_class.human_attribute_name(:card_expire) %></p>
-                        </div>
-                        <div class="col-sm-8">
-                          <p class="text-muted mb-0"><%= @bank.card_expire %></p>
-                        </div>
-                      </div>
-
-                      <div class="d-flex justify-content-end mt-5">
-                        <button type="button" class="btn btn-primary">Edit</button>
-                      </div>
-
+                      <% if @bank %>
+                        <%= render "users/banks/bank", bank: @bank %>
+                      <% else %>
+                        <% @bank = @user.build_bank %>
+                        <%= render "users/banks/form", bank: @bank %>
                       <% end %>
                     </div>
 

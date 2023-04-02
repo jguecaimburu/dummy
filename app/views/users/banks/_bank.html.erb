@@ -1,0 +1,65 @@
+<%= turbo_frame_tag dom_id(bank) do %>
+  <div class="row">
+    <div class="col">
+      <% @bank_class = Bank %>
+      <h2 class="h4 mb-4"><%= @bank_class.model_name.human %></h2>
+
+      <% if notice %>
+        <div class="alert alert-success"><%= notice %></div>
+      <% end %>
+
+      <div class="row border-bottom mx-2 mb-3 pb-2">
+        <div class="col-sm-4">
+          <p class="mb-0"><%= @bank_class.human_attribute_name(:iban) %></p>
+        </div>
+        <div class="col-sm-8">
+          <p class="text-muted mb-0"><%= @bank.iban %></p>
+        </div>
+      </div>
+
+      <div class="row border-bottom mx-2 mb-3 pb-2">
+        <div class="col-sm-4">
+          <p class="mb-0"><%= @bank_class.human_attribute_name(:currency) %></p>
+        </div>
+        <div class="col-sm-8">
+          <p class="text-muted mb-0"><%= @bank.currency %></p>
+        </div>
+      </div>
+
+      <div class="row border-bottom mx-2 mb-3 pb-2">
+        <div class="col-sm-4">
+          <p class="mb-0"><%= @bank_class.human_attribute_name(:card_type) %></p>
+        </div>
+        <div class="col-sm-8">
+          <p class="text-muted mb-0"><%= @bank.card_type %></p>
+        </div>
+      </div>
+
+      <div class="row border-bottom mx-2 mb-3 pb-2">
+        <div class="col-sm-4">
+          <p class="mb-0"><%= @bank_class.human_attribute_name(:card_number) %></p>
+        </div>
+        <div class="col-sm-8">
+          <p class="text-muted mb-0"><%= @bank.card_number %></p>
+        </div>
+      </div>
+
+      <div class="row border-bottom mx-2 pb-2">
+        <div class="col-sm-4">
+          <p class="mb-0"><%= @bank_class.human_attribute_name(:card_expire) %></p>
+        </div>
+        <div class="col-sm-8">
+          <p class="text-muted mb-0"><%= @bank.card_expire %></p>
+        </div>
+      </div>
+
+      <div class="row justify-content-end pr-5 pt-4">
+        <div class="col-3">
+          <div class="d-flex justify-content-end">
+            <%= link_to "Edit", edit_user_bank_path(bank.user, bank), class: "btn btn-primary" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
