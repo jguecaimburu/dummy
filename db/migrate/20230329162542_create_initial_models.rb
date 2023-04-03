@@ -8,8 +8,8 @@ class CreateInitialModels < ActiveRecord::Migration[7.0]
       t.string :last_name, index: true
       t.string :maiden_name, index: true
       t.string :email, index: true
-      t.integer :age
-      t.string :gender
+      t.integer :age, index: true
+      t.string :gender, index: true
       t.string :phone
       t.string :username
       t.string :password
@@ -33,7 +33,7 @@ class CreateInitialModels < ActiveRecord::Migration[7.0]
     end
 
     create_table :occupations do |t|
-      t.string :company_name, index: { unique: true }
+      t.string :company_name
       t.string :title
       t.string :department
       t.string :address
@@ -42,7 +42,7 @@ class CreateInitialModels < ActiveRecord::Migration[7.0]
       t.float :longitude
       t.string :postal_code
       t.string :state
-      t.references :user, null: false, foreign_key: true
+      t.references :user, null: false, foreign_key: true, index: { unique: true }
       t.timestamps
     end
 
@@ -53,17 +53,18 @@ class CreateInitialModels < ActiveRecord::Migration[7.0]
       t.float :longitude
       t.string :postal_code
       t.string :state
-      t.references :user, null: false, foreign_key: true
+      t.references :user, null: false, foreign_key: true, index: { unique: true }
       t.timestamps
     end
 
     create_table :banks do |t|
       t.string :card_number
-      t.string :card_expire
+      t.integer :card_expiration_month
+      t.integer :card_expiration_year
       t.string :card_type
       t.string :currency
       t.string :iban
-      t.references :user, null: false, foreign_key: true
+      t.references :user, null: false, foreign_key: true, index: { unique: true }
       t.timestamps
     end
 

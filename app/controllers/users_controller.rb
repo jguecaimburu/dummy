@@ -5,7 +5,7 @@ class UsersController < ApplicationController
 
   def index
     @user_search = UserSearch.new(user_search_params)
-    @pagy, @users = pagy(@user_search.users)
+    @pagy, @users = pagy(@user_search.users.order(:id))
   end
 
   def show; end

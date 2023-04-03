@@ -3,6 +3,9 @@
     <div class="col">
       <nav class="bg-light rounded p-3 mb-1">
         <div class="d-flex justify-content-end gap-2">
+          <% unless @user_search.params.blank? %>
+            <%= link_to "Reset", users_path, class: "btn btn-light" %>
+          <% end %>
           <button type="button" class="btn btn-danger"
               data-bulk-operation-target="button"
               data-action="bulk-operation#execute"
@@ -25,11 +28,13 @@
       <% end %>
       
       <div class="row" id="users">
-        <table class="table table-hover align-middle mb-0 bg-white border rounded">
+        <table class="table table-hover align-middle mb-0 bg-white border rounded users-table">
           <thead class="bg-light">
             <tr>
               <th></th>
-              <th><span class="d-inline-block users-table-header-name"><%= model_human_attribute_name(:name) %></span></th>
+              <th>
+                <span class="d-inline-block users-table-header-name-content"><%= model_human_attribute_name(:name) %></span>
+              </th>
               <th><%= model_human_attribute_name(:age) %></th>
               <th><%= model_human_attribute_name(:gender) %></th>
               <th></th>
@@ -39,6 +44,18 @@
             <%= render partial: "user_row", collection: @users, as: :user, cached: true %>
           </tbody>
         </table>
+        <% unless @users.size.positive? %>
+          <div class="row mt-3 empty-table-message">
+            <p>
+              No results found. 
+              <% if @user_search.params.present? %>
+                <%= link_to "Click to reset the filters.", users_path, class: "p-0" %>
+              <% else %>
+                If you just fetched users, try refreshing in a moment.
+              <% end %>
+            </p>
+          </div>
+          <% end %>
         <div class="row pt-3 pr-2">
           <div col="col">
             <%== pagy_bootstrap_nav(@pagy) %>

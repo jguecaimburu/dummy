@@ -24,19 +24,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_29_162542) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_addresses_on_user_id"
+    t.index ["user_id"], name: "index_addresses_on_user_id", unique: true
   end
 
   create_table "banks", force: :cascade do |t|
     t.string "card_number"
-    t.string "card_expire"
+    t.integer "card_expiration_month"
+    t.integer "card_expiration_year"
     t.string "card_type"
     t.string "currency"
     t.string "iban"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_banks_on_user_id"
+    t.index ["user_id"], name: "index_banks_on_user_id", unique: true
   end
 
   create_table "dummy_json_user_responses", force: :cascade do |t|
@@ -64,8 +65,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_29_162542) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["company_name"], name: "index_occupations_on_company_name", unique: true
-    t.index ["user_id"], name: "index_occupations_on_user_id"
+    t.index ["user_id"], name: "index_occupations_on_user_id", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -96,8 +96,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_29_162542) do
     t.string "status", default: "registered"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["age"], name: "index_users_on_age"
     t.index ["email"], name: "index_users_on_email"
     t.index ["first_name"], name: "index_users_on_first_name"
+    t.index ["gender"], name: "index_users_on_gender"
     t.index ["last_name"], name: "index_users_on_last_name"
     t.index ["maiden_name"], name: "index_users_on_maiden_name"
     t.index ["status"], name: "index_users_on_status"

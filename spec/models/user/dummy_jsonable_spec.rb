@@ -50,7 +50,8 @@ describe User::DummyJsonable do
     end
     let(:output_bank_data) do
       {
-        card_expire: "06/22",
+        card_expiration_month: 6,
+        card_expiration_year: 2022,
         card_number: "50380955204220685",
         card_type: "maestro",
         currency: "Peso",

@@ -97,7 +97,7 @@
               <%= form.label :weight, class: "form-label mb-0" %>
             </div>
             <div class="col-8">
-              <%= form.number_field :weight, min: 1, step: 1, class: "form-control p-0 border-0" %>
+              <%= form.number_field :weight, min: 0.1, step: 0.1, class: "form-control p-0 border-0" %>
             </div>
           </div>
 
@@ -171,7 +171,7 @@
               <%= form.label :domain, class: "form-label mb-0" %>
             </div>
             <div class="col-8">
-              <%= form.url_field :domain, class: "form-control p-0 border-0" %>
+              <%= form.text_field :domain, class: "form-control p-0 border-0" %>
             </div>
           </div>
 

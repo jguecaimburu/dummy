@@ -54,11 +54,20 @@
         </div>
 
         <div class="row border-bottom mx-2 mb-3 pb-2">
-          <div class="col-4">
-            <%= form.label :card_expire, class: "form-label mb-0" %>
+          <div class="col-5">
+            <%= form.label :card_expiration_month, class: "form-label mb-0" %>
           </div>
-          <div class="col-8">
-            <%= form.text_field :card_expire, class: "form-control p-0 border-0" %>
+          <div class="col-7">
+            <%= form.number_field :card_expiration_month, min: 1, max: 12, step: 1, class: "form-control p-0 border-0" %>
+          </div>
+        </div>
+
+        <div class="row border-bottom mx-2 mb-3 pb-2">
+          <div class="col-5">
+            <%= form.label :card_expiration_year, class: "form-label mb-0" %>
+          </div>
+          <div class="col-7">
+            <%= form.number_field :card_expiration_year, min: 2000, max: Date.current.year + 10, step: 1, class: "form-control p-0 border-0" %>
           </div>
         </div>
 

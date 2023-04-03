@@ -62,7 +62,11 @@ class User
           occupation_data[:title] = value[:title]
           processed_data[:occupation_attributes] = occupation_data
         when :bank
-          processed_data[:bank_attributes] = value
+          card_expiration_month, card_expiration_year = value[:card_expire].split("/").map(&:to_i)
+          bank_data = value.except(:card_expire)
+          bank_data[:card_expiration_year] = card_expiration_year + 2000
+          bank_data[:card_expiration_month] = card_expiration_month
+          processed_data[:bank_attributes] = bank_data
         else
           processed_data[key] = value
         end
