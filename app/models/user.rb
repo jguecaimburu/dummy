@@ -9,15 +9,12 @@ class User < ApplicationRecord
   has_one :occupation, dependent: :destroy
 
   accepts_nested_attributes_for :bank, :address, :occupation
-
   validates_associated :bank, on: :create
   validates_associated :address, on: :create
   validates_associated :occupation, on: :create
 
   encrypts :password
-
   enum gender: { female: "female", male: "male" }
-
   enum blood_group: {
     "A+" => "positive_a",
     "B+" => "positive_b",
@@ -29,8 +26,8 @@ class User < ApplicationRecord
     "O-" => "negative_zero"
   }
 
-  scope :not_deleted, ->{ where(soft_deleted: false) }
-  scope :deleted, ->{ where(soft_deleted: true) }
+  enum status:{ registered: "registered", trashed: "trashed", incinerating: "incinerating" }
+  INCINERATION_DELAY = 30.minutes
 
   scope :by_age, ->(from:, to:){ where(age: (from.to_i..to.to_i)) }
   MIN_AGE = 1
@@ -40,7 +37,29 @@ class User < ApplicationRecord
                   against: [:first_name, :last_name, :maiden_name, :email],
                   using: { tsearch: { prefix: true } }
 
+  validate :should_be_trashed_before_incineration, on: :update, if: ->{ incinerating? && status_changed? }
+  after_update_commit :schedule_user_incineration, if: ->{ trashed? && status_previously_changed? }
+
   def name
     [first_name, last_name].join(" ")
+  end
+
+  def trash
+    update(status: :trashed)
+  end
+
+  def incinerate!
+    UserMailer.with(user: self).incinerated.deliver_now
+    destroy!
+  end
+
+  private
+
+  def should_be_trashed_before_incineration
+    errors.add(:status, :was_not_active) unless status_was.to_sym == :trashed 
+  end
+
+  def schedule_user_incineration
+    UserIncinerationJob.perform_in(INCINERATION_DELAY, id)
   end
 end

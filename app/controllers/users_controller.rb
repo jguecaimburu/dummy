@@ -43,11 +43,14 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user.destroy
-
     respond_to do |format|
-      format.html { redirect_to users_path, notice: "User was successfully destroyed." }
-      format.json { head :no_content }
+      if @user.trash
+        format.html { redirect_to users_path, notice: "User was successfully trashed." }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to users_path, alert: "User could not be trashed." }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
     end
   end
 

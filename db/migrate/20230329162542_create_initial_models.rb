@@ -28,7 +28,7 @@ class CreateInitialModels < ActiveRecord::Migration[7.0]
       t.string :ein
       t.string :ssn
       t.string :user_agent
-      t.boolean :soft_deleted, default: false, index: true
+      t.string :status, default: "registered", index: true
       t.timestamps
     end
 

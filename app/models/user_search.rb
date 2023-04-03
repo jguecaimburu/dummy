@@ -10,7 +10,7 @@ class UserSearch
   end
 
   def users
-    users = User.not_deleted
+    users = User.registered
     users = users.where(gender: gender) if gender.present?
     users = users.by_age(from: from_age, to: to_age)
     users = users.search_by_full_name_and_email(search_term) if search_term.present?

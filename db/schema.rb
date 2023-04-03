@@ -93,14 +93,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_29_162542) do
     t.string "ein"
     t.string "ssn"
     t.string "user_agent"
-    t.boolean "soft_deleted", default: false
+    t.string "status", default: "registered"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email"
     t.index ["first_name"], name: "index_users_on_first_name"
     t.index ["last_name"], name: "index_users_on_last_name"
     t.index ["maiden_name"], name: "index_users_on_maiden_name"
-    t.index ["soft_deleted"], name: "index_users_on_soft_deleted"
+    t.index ["status"], name: "index_users_on_status"
   end
 
   add_foreign_key "addresses", "users"
