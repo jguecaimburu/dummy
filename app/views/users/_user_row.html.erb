@@ -1,4 +1,9 @@
-<tr>
+<tr id="<%= dom_id(user, :row) %>">
+  <td>
+    <%= check_box_tag dom_id(user), user.id, false,
+          class: "form-check-input", aria: { label: user.name },
+          data: { bulk_operation_target: "checkbox", action: "change->bulk-operation#toggle" } %>
+  </td>
   <td>
     <div class="d-flex align-items-center gap-3">
       <div>

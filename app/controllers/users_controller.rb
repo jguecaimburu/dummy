@@ -49,7 +49,7 @@ class UsersController < ApplicationController
         format.json { head :no_content }
       else
         format.html { redirect_to users_path, alert: "User could not be trashed." }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+        format.json { head :unprocessable_entity }
       end
     end
   end

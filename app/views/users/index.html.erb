@@ -1,8 +1,15 @@
-<article class="container-fluid content">
+<article class="container-fluid content" data-controller="bulk-operation">
   <header class="row mb-5">
     <div class="col">
       <nav class="bg-light rounded p-3 mb-1">
-        <div class="d-flex justify-content-end">
+        <div class="d-flex justify-content-end gap-2">
+          <button type="button" class="btn btn-danger"
+              data-bulk-operation-target="button"
+              data-action="bulk-operation#execute"
+              data-operation-url="<%= user_bulk_trashes_path %>"
+              disabled
+              >Trash Selection</button>
+
           <%= link_to "New user", new_user_path, class: "btn btn-primary" %>
         </div>
       </nav>
@@ -21,6 +28,7 @@
         <table class="table table-hover align-middle mb-0 bg-white border rounded">
           <thead class="bg-light">
             <tr>
+              <th></th>
               <th><span class="d-inline-block users-table-header-name"><%= model_human_attribute_name(:name) %></span></th>
               <th><%= model_human_attribute_name(:age) %></th>
               <th><%= model_human_attribute_name(:gender) %></th>

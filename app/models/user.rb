@@ -40,6 +40,15 @@ class User < ApplicationRecord
   validate :should_be_trashed_before_incineration, on: :update, if: ->{ incinerating? && status_changed? }
   after_update_commit :schedule_user_incineration, if: ->{ trashed? && status_previously_changed? }
 
+  def self.bulk_trash(selected_ids)
+    users = where(id: selected_ids)
+    result = transaction do
+      users.each { |user| raise ActiveRecord::Rollback unless user.trash }
+      true
+    end
+    result.present?
+  end
+
   def name
     [first_name, last_name].join(" ")
   end
