@@ -36,7 +36,7 @@
             </tr>
           </thead>
           <tbody>
-            <%= render partial: "user_row", collection: @users, as: :user %>
+            <%= render partial: "user_row", collection: @users, as: :user, cached: true %>
           </tbody>
         </table>
         <div class="row pt-3 pr-2">

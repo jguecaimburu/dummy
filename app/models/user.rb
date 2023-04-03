@@ -38,7 +38,10 @@ class User < ApplicationRecord
                   using: { tsearch: { prefix: true } }
 
   validate :should_be_trashed_before_incineration, on: :update, if: -> { incinerating? && status_changed? }
-  after_update_commit :schedule_user_incineration, if: -> { trashed? && status_previously_changed? }
+  
+  after_commit :purge_cache_later, on: %i[create destroy]
+  after_update_commit :incinerate_later, if: -> { trashed? && status_previously_changed? }
+
 
   def self.bulk_trash(selected_ids)
     users = where(id: selected_ids)
@@ -68,7 +71,11 @@ class User < ApplicationRecord
     errors.add(:status, :was_not_active) unless status_was.to_sym == :trashed
   end
 
-  def schedule_user_incineration
+  def incinerate_later
     UserIncinerationJob.perform_in(INCINERATION_DELAY, id)
+  end
+
+  def purge_cache_later
+    PurgeCacheJob.perform_async
   end
 end

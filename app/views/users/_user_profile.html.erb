@@ -1,10 +1,14 @@
 <div id=<%= dom_id(user, :profile) %>>
-	<% if user.persisted? %>
+	<% if user.image.present? %>
 		<%= image_tag(user.image, alt: "avatar", class: "rounded-circle img-fluid user-profile-picture") %>
-		<p class="h3 mt-3"><%= user.name %></p>
-		<p><%= user.email %></p>
 	<% else %>
 		<div class="rounded-circle user-profile-default-picture"></div>
+	<% end %>
+
+	<% if user.persisted? %>
+		<p class="h3 mt-3"><%= user.name.present? ? user.name : "-" %></p>
+		<p><%= user.email.present? ? user.email : "-" %></p>
+	<% else %>
 		<p class="h3 mt-3">Full Name</p>
 		<p>some@email.com</p>
 	<% end %>

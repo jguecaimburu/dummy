@@ -21,11 +21,9 @@
                   
                   <div class="row align-items-start">
                     <div class="col">
-                      <div>
-                        <%= image_tag(@user.image, alt: "avatar", class: "rounded-circle img-fluid user-profile-picture") %>
-                        <p class="h3 mt-3"><%= @user.name %></p>
-                        <p><%= @user.email %></p>
-                      </div>
+                      <% cache [@user, :profile] do %>
+                        <%= render "users/user_profile", user: @user %>
+                      <% end %>
                       
                       <div
                         class="nav flex-column nav-pills text-center"
@@ -55,19 +53,27 @@
 
                     <div class="col mt-4">
                       <% if @bank %>
-                        <%= render "users/banks/bank", bank: @bank %>
+                        <% cache @bank do %>
+                          <%= render "users/banks/bank", bank: @bank %>
+                        <% end %>
                       <% else %>
-                        <% @bank = @user.build_bank %>
-                        <%= render "users/banks/form", bank: @bank %>
+                        <% cache :new_bank_form do %>
+                          <% @bank = @user.build_bank %>
+                          <%= render "users/banks/form", bank: @bank %>
+                        <% end %>
                       <% end %>
                     </div>
 
                     <div class="col mt-4">
                       <% if @address %>
-                        <%= render "users/addresses/address", address: @address %>
+                        <% cache @address do %>
+                          <%= render "users/addresses/address", address: @address %>
+                        <% end %>
                       <% else %>
-                        <% @address = @user.build_address %>
-                        <%= render "users/addresses/form", address: @address %>
+                        <% cache :new_address_form do %>
+                          <% @address = @user.build_address %>
+                          <%= render "users/addresses/form", address: @address %>
+                        <% end %>
                       <% end %>
                     </div>
                   </div>

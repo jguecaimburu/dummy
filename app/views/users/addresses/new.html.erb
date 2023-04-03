@@ -20,7 +20,9 @@
                 
                 <div class="row align-items-start">
                   <div class="col-4">
-                    <%= render "users/user_profile", user: @user %>
+                    <% cache [@user, :profile] do %>
+                      <%= render "users/user_profile", user: @user %>
+                    <% end %>
                     
                     <div
                         class="nav flex-column nav-pills text-center"
@@ -48,7 +50,9 @@
                       </div>
                   </div>
                   <div class="col-8 mt-4">
-                    <%= render "form", address: @address %>
+                    <% cache :new_address_form do %>
+                      <%= render "form", address: @address %>
+                    <% end %>
                   </div>
                 </div>
               </div>

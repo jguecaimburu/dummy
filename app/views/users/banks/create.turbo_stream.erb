@@ -1,2 +1,2 @@
-<% flash[:notice] = "Address was successfully created."%>
-<%= turbo_stream.replace(dom_id(Address.new), partial: "users/addresses/address", locals: { address: @address}) %>
+<% flash[:notice] = "Bank was successfully created."%>
+<%= turbo_stream.replace(dom_id(Bank.new), partial: "users/banks/bank", locals: { bank: @bank}) %>
