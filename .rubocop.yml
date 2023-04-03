@@ -37,6 +37,11 @@ Style/Documentation:
 Metrics/BlockLength:
   Exclude:
     - db/*
+    - config/**/*
+
+Metrics/AbcSize:
+  Exclude:
+    - app/controllers/**/*
 
 RSpec/MultipleExpectations:
   Enabled: false

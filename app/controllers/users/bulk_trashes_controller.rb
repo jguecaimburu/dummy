@@ -2,7 +2,6 @@
 
 module Users
   class BulkTrashesController < ApplicationController
-    # rubocop:disable Metrics/AbcSize
     def create
       @selected_ids = bulk_trash_params[:selected_ids]
       respond_to do |format|
@@ -17,7 +16,6 @@ module Users
         end
       end
     end
-    # rubocop:disable Metrics/AbcSize
 
     private
 

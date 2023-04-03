@@ -2,7 +2,7 @@
 
 module ApplicationHelper
   include Pagy::Frontend
-  
+
   def model_human_name
     model_class.model_name.human
   end

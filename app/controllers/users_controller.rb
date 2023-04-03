@@ -71,7 +71,7 @@ class UsersController < ApplicationController
 
   def user_search_params
     return {} unless params.include?(:user_search)
-    
+
     params.require(:user_search).permit(:search_term, :from_age, :to_age, :gender)
   end
 end

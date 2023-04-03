@@ -17,5 +17,4 @@ Rails.application.routes.draw do
       resources :bulk_trashes, only: %i[create], controller: "users/bulk_trashes", as: "user_bulk_trashes"
     end
   end
-  
 end

@@ -2,8 +2,6 @@
 
 module Users
   class AddressesController < ApplicationController
-    include ActionView::RecordIdentifier
-
     before_action :set_user
     before_action :set_address, only: %i[show edit update]
 
@@ -20,7 +18,6 @@ module Users
 
     def edit; end
 
-    # rubocop:disable Metrics/AbcSize
     def create
       @address = Address.new(address_params.merge(user: @user))
 
@@ -52,7 +49,6 @@ module Users
         end
       end
     end
-    # rubocop:enable Metrics/AbcSize
 
     private
 
