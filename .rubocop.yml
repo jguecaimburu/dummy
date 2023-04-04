@@ -46,5 +46,8 @@ Metrics/AbcSize:
 RSpec/MultipleExpectations:
   Enabled: false
 
+RSpec/ExpectInHook:
+  Enabled: false
+
 Rails/I18nLocaleTexts:
   Enabled: false

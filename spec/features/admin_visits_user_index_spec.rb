@@ -22,12 +22,12 @@ describe "admin visits user index" do
       expect(Bank.count).to eq(11)
       expect(Occupation.count).to eq(11)
     end
-    
-    it "should be able to see, filter, reset and destroy users" do
+
+    it "is able to see, filter, reset and destroy users" do
       visit users_path
 
       expect(page).to have_link("New user")
-      
+
       expect(page).to have_table
       within("tbody") do
         expect(page).to have_selector("tr", count: 10)
@@ -40,16 +40,7 @@ describe "admin visits user index" do
       within("tbody") do
         expect(page).to have_selector("tr", count: 5)
       end
-      expect(page).to have_no_link("2")
-
-
-      fill_in "To age", with: 35
-      click_button "Search"
-      expect(page).to have_table
-      within("tbody") do
-        expect(page).to have_selector("tr", count: 1)
-      end
-      expect(page).to have_no_link("2")
+      expect(page).not_to have_link("2")
 
       fill_in "To age", with: 35
       click_button "Search"
@@ -57,7 +48,15 @@ describe "admin visits user index" do
       within("tbody") do
         expect(page).to have_selector("tr", count: 1)
       end
-      expect(page).to have_no_link("2")
+      expect(page).not_to have_link("2")
+
+      fill_in "To age", with: 35
+      click_button "Search"
+      expect(page).to have_table
+      within("tbody") do
+        expect(page).to have_selector("tr", count: 1)
+      end
+      expect(page).not_to have_link("2")
 
       click_link "Reset"
       expect(page).to have_table
@@ -74,16 +73,16 @@ describe "admin visits user index" do
         expect(page).to have_text("Arthur")
         expect(page).to have_text("Alice")
       end
-      expect(page).to have_no_link("2")
+      expect(page).not_to have_link("2")
 
       fill_in "Search term", with: "Any random search"
       click_button "Search"
       expect(page).to have_table
       within("tbody") do
-        expect(page).to have_no_selector("tr")
+        expect(page).not_to have_selector("tr")
       end
       expect(page).to have_text("No results found.")
-      
+
       click_link "Click to reset the filters."
       expect(page).to have_table
       within("tbody") do
@@ -103,7 +102,7 @@ describe "admin visits user index" do
           click_button "Delete"
         end
         expect(page).to have_table
-        expect(page).to have_no_text("Arthur")
+        expect(page).not_to have_text("Arthur")
       end.to(
         change { User.trashed.count }.by(1)
       )
@@ -115,10 +114,10 @@ describe "admin visits user index" do
     occupation_attributes = { company_name: "Sirius Cybernetics Corporation", title: "Robot designer" }
     bank_attributes = { iban: "NO17 0695 2754 967" }
     full_attributes = user_attributes.merge(
-      address_attributes: address_attributes,
-      bank_attributes: bank_attributes,
-      occupation_attributes: occupation_attributes
+      address_attributes:,
+      bank_attributes:,
+      occupation_attributes:
     )
-    user = User.create!(full_attributes)
+    User.create!(full_attributes)
   end
 end

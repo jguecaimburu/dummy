@@ -7,13 +7,13 @@ describe "admin visits user index" do
     before do
       User.destroy_all
     end
-    
-    it "should be able to see, filter, reset and destroy users" do
+
+    it "is able to see, filter, reset and destroy users" do
       visit users_path
 
       expect(page).to have_table
       within("tbody") do
-        expect(page).to have_no_selector("tr")
+        expect(page).not_to have_selector("tr")
       end
       expect(page).to have_text("No results found.")
       expect(page).to have_text("If you just fetched users, try refreshing in a moment.")
@@ -23,7 +23,7 @@ describe "admin visits user index" do
       fill_in "First name", with: "Arthur"
       fill_in "Last name", with: "Dent"
       fill_in "Age", with: 30
-      select "O+", from: "Blood group" 
+      select "O+", from: "Blood group"
 
       expect do
         click_button "Create User"
@@ -56,15 +56,15 @@ describe "admin visits user index" do
       fill_in "Last name", with: "Arturo"
       expect do
         click_button "Update User"
-        expect(page).to have_no_text("error")
+        expect(page).not_to have_text("error")
       end.to(
         change { user.reload.last_name }.to("Arturo")
         .and(not_change { PurgeCacheJob.jobs.size })
       )
 
       click_link "Billing Details"
-      
-      expect(page).to have_no_link("Cancel")
+
+      expect(page).not_to have_link("Cancel")
       fill_in "Iban", with: "NO17 0695 2754 967"
       expect do
         click_button "Create Bank"
@@ -86,7 +86,7 @@ describe "admin visits user index" do
       expect(Address.last.user).to eq(user)
 
       click_link "Company"
-      expect(page).to have_no_link("Cancel")
+      expect(page).not_to have_link("Cancel")
       fill_in "Company name", with: "Sirius Cybernetics Corporation"
       expect do
         click_button "Create Company"
