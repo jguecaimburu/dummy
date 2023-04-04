@@ -8,8 +8,8 @@ describe User::DummyJsonable do
   describe "process_dummy_json_data" do
     let(:output_user_data) do
       {
-        first_name: "Terry",
-        last_name: "Medhurst",
+        first_name: "Perry",
+        last_name: "Wedhurst",
         maiden_name: "Smitham",
         age: 50,
         gender: "male",

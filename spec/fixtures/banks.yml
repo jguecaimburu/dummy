@@ -1,0 +1,8 @@
+terry_medhurst_bank:
+  card_expiration_month: 6
+  card_expiration_year: 2022
+  card_number: '50380955204220685'
+  card_type: maestro
+  currency: Peso
+  iban: NO17 0695 2754 967
+  user: terry_medhurst
