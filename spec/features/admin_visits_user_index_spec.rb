@@ -34,6 +34,19 @@ describe "admin visits user index" do
       end
       expect(page).to have_link("2")
 
+      click_link "2"
+      expect(page).to have_table
+      within("tbody") do
+        expect(page).to have_selector("tr", count: 1)
+      end
+      expect(page).to have_link("2")
+
+      click_link "1"
+      expect(page).to have_table
+      within("tbody") do
+        expect(page).to have_selector("tr", count: 10)
+      end
+
       choose "female"
       click_button "Search"
       expect(page).to have_table
