@@ -6,11 +6,11 @@
       <% url = bank.persisted? ? user_bank_path(bank.user, bank) : user_banks_path(bank.user) %>
       <%= form_with(model: bank, url: url) do |form| %>
         <% if bank.errors.any? %>
-          <div class="alert alert-danger">
-            <h2><%= pluralize(bank.errors.count, "error") %> prohibited this bank from being saved:</h2>
+          <div class="alert alert-danger error-alert">
+            <p><%= pluralize(bank.errors.count, "error") %> prohibited this bank from being saved:</p>
 
             <ul>
-              <% address.errors.each do |error| %>
+              <% bank.errors.each do |error| %>
                 <li><%= error.full_message %></li>
               <% end %>
             </ul>

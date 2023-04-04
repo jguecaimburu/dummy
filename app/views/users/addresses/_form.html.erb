@@ -6,8 +6,8 @@
       <% url = address.persisted? ? user_address_path(address.user, address) : user_addresses_path(address.user) %>
       <%= form_with(model: address, url: url) do |form| %>
         <% if address.errors.any? %>
-          <div class="alert alert-danger">
-            <h2><%= pluralize(address.errors.count, "error") %> prohibited this address from being saved:</h2>
+          <div class="alert alert-danger error-alert">
+            <p><%= pluralize(address.errors.count, "error") %> prohibited this address from being saved:</p>
 
             <ul>
               <% address.errors.each do |error| %>

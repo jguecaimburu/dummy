@@ -55,7 +55,7 @@
                       </div>
                   </div>
                   <div class="col-8 mt-4">
-                    <% cache @bank do %>
+                    <% cache [@bank, notice.present?] do %>
                       <%= render @bank %>
                     <% end %>
                   </div>

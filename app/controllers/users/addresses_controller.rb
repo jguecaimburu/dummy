@@ -24,12 +24,15 @@ module Users
       respond_to do |format|
         if @address.save
           format.html { redirect_to user_billing_detail_path(@user), notice: "Address was successfully created." }
-          format.turbo_stream
           format.json { render :show, status: :created, location: user_address_path(@user, @address) }
+          format.turbo_stream
         else
           format.html { render :new, status: :unprocessable_entity }
-          format.turbo_stream { render :new, status: :unprocessable_entity }
           format.json { render json: @address.errors, status: :unprocessable_entity }
+          format.turbo_stream do
+            render turbo_stream: turbo_stream.replace(dom_id(@address), partial: "users/addresses/form", locals: { address: @address }),
+                   status: :unprocessable_entity
+          end
         end
       end
     end
@@ -44,8 +47,11 @@ module Users
           format.json { render :show, status: :ok, location: user_address_path(@user, @address) }
         else
           format.html { render :edit, status: :unprocessable_entity }
-          format.turbo_stream { render :edit, status: :unprocessable_entity }
           format.json { render json: @address.errors, status: :unprocessable_entity }
+          format.turbo_stream do
+            render turbo_stream: turbo_stream.replace(dom_id(@address), partial: "users/addresses/form", locals: { address: @address }),
+                   status: :unprocessable_entity
+          end
         end
       end
     end

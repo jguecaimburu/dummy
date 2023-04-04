@@ -62,10 +62,8 @@
                           <%= render "users/banks/bank", bank: @bank %>
                         <% end %>
                       <% else %>
-                        <% cache :new_bank_form do %>
-                          <% @bank = @user.build_bank %>
-                          <%= render "users/banks/form", bank: @bank %>
-                        <% end %>
+                        <% @bank = @user.build_bank %>
+                        <%= render "users/banks/form", bank: @bank %>
                       <% end %>
                     </div>
 
@@ -75,10 +73,8 @@
                           <%= render "users/addresses/address", address: @address %>
                         <% end %>
                       <% else %>
-                        <% cache :new_address_form do %>
-                          <% @address = @user.build_address %>
-                          <%= render "users/addresses/form", address: @address %>
-                        <% end %>
+                        <% @address = @user.build_address %>
+                        <%= render "users/addresses/form", address: @address %>
                       <% end %>
                     </div>
                   </div>

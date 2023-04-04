@@ -3,8 +3,8 @@
     <% url = occupation.persisted? ? user_occupation_path(occupation.user, occupation) : user_occupations_path(occupation.user) %>
     <%= form_with(model: occupation, url: url) do |form| %>
       <% if occupation.errors.any? %>
-        <div class="alert alert-danger">
-          <h2><%= pluralize(occupation.errors.count, "error") %> prohibited this occupation from being saved:</h2>
+        <div class="alert alert-danger error-alert">
+          <p><%= pluralize(occupation.errors.count, "error") %> prohibited this occupation from being saved:</p>
 
           <ul>
             <% occupation.errors.each do |error| %>

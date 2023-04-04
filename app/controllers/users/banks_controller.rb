@@ -24,12 +24,15 @@ module Users
       respond_to do |format|
         if @bank.save
           format.html { redirect_to user_billing_detail_path(@user), notice: "Bank was successfully created." }
-          format.turbo_stream
           format.json { render :show, status: :created, location: user_bank_path(@user, @bank) }
+          format.turbo_stream
         else
           format.html { render :new, status: :unprocessable_entity }
-          format.turbo_stream { render :new, status: :unprocessable_entity }
           format.json { render json: @bank.errors, status: :unprocessable_entity }
+          format.turbo_stream do
+            render turbo_stream: turbo_stream.replace(dom_id(@bank), partial: "users/banks/form", locals: { bank: @bank }),
+                   status: :unprocessable_entity
+          end
         end
       end
     end
@@ -38,14 +41,15 @@ module Users
       respond_to do |format|
         if @bank.update(bank_params)
           format.html { redirect_to user_billing_detail_path(@user), notice: "Bank was successfully updated." }
-          format.turbo_stream do
-            redirect_to user_bank_path(@user, @bank), notice: "Bank was successfully updated."
-          end
           format.json { render :show, status: :ok, location: user_bank_path(@user, @bank) }
+          format.turbo_stream { redirect_to user_bank_path(@user, @bank), notice: "Bank was successfully updated." }
         else
           format.html { render :edit, status: :unprocessable_entity }
-          format.turbo_stream { render :edit, status: :unprocessable_entity }
           format.json { render json: @bank.errors, status: :unprocessable_entity }
+          format.turbo_stream do
+            render turbo_stream: turbo_stream.replace(dom_id(@bank), partial: "users/banks/form", locals: { bank: @bank }),
+                   status: :unprocessable_entity
+          end
         end
       end
     end
@@ -62,7 +66,7 @@ module Users
 
     def bank_params
       params.require(:bank).permit(
-        :iban, :currency, :card_type, :card_number, :card_expire
+        :iban, :currency, :card_type, :card_number, :card_expiration_year, :card_expiration_month
       )
     end
   end
