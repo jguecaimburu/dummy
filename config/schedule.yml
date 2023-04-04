@@ -1,0 +1,3 @@
+fetch_dummy_json_users:
+  cron: "0 5 * * *"
+  class: "FetchDummyJsonUsersJob"

@@ -53,8 +53,9 @@ gem "bootsnap", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
-# Use Sidekiq to process background jobs
+# Use Sidekiq to process background jobs with cron for scheduled jobs
 gem "sidekiq", "~> 7.0"
+gem "sidekiq-cron", "~> 1.10"
 
 # Use Faraday for http requests
 gem "faraday", "~> 2"
