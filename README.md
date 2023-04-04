@@ -19,7 +19,7 @@
 - Run Sidekiq with `bundle exec sidekiq`
 - Run the app and bundle assets with `bin/rails dev`
 
-To populate the application with data from the Dummy Json api, run in a Rails console: `FetchDummyJsonUsersJob.perform_async`
+To populate the application with data from the Dummy Json api, visit `http://localhost:3000/sidekiq/cron` and click "Enqueue Now" or run in a Rails console: `FetchDummyJsonUsersJob.perform_async`.
 
 ## Formatting and testing
 
