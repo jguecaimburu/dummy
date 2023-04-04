@@ -6,7 +6,9 @@ describe FetchDummyJsonUsersJob do
   describe "perform" do
     let(:pages) { (total / per_page.to_f).ceil }
     let(:user_pages_data) { build_user_pages(total:, per_page:) }
-    before { User.destroy_all }
+    before {
+      User.destroy_all
+    }
 
     context "when all jobs run successfully for 10 pages and 100 users" do
       let(:total) { 100 }

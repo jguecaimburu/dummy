@@ -1,4 +1,4 @@
-terry_medhurst_json:
+terry_medhurst_response:
   data: '{"id":1,"ip":"117.29.86.254","age":50,"ein":"20-9487066","ssn":"661-64-2976","bank":{"iban":"NO17
     0695 2754 967","cardType":"maestro","currency":"Peso","cardExpire":"06/22","cardNumber":"50380955204220685"},"hair":{"type":"Strands","color":"Black"},"email":"atuny0@sohu.com","image":"https://robohash.org/hicveldicta.png","phone":"+63
     791 675 8914","domain":"slashdot.org","gender":"male","height":189,"weight":75.4,"address":{"city":"Washington","state":"DC","address":"1745

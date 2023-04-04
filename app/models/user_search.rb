@@ -9,7 +9,7 @@ class UserSearch
     users = User.registered
     users = users.where(gender:) if gender.present?
     users = users.by_age(from: from_age, to: to_age) if from_age.present? || to_age.present?
-    users = users.search_by_full_name_and_email(search_term) if search_term.present?
+    users = users.by_full_name_and_email(search_term) if search_term.present?
     users
   end
 

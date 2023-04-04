@@ -6,7 +6,7 @@ class User
 
     included do
       INCINERATION_DELAY = 30.minutes
-      validate :should_be_trashed_before_incineration, on: :update, if: -> { incinerating? }
+      validate :should_be_trashed_before_incineration, on: :update, if: :incinerating?
       after_update_commit :incinerate_later, if: -> { trashed? && status_previously_changed? }
     end
 

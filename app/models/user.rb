@@ -30,9 +30,13 @@ class User < ApplicationRecord
   MIN_AGE = 1
   MAX_AGE = 125
 
-  pg_search_scope :search_by_full_name_and_email,
+  pg_search_scope :by_full_name_and_email,
                   against: %i[first_name last_name maiden_name email],
                   using: { tsearch: { prefix: true } }
+
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+  validates :age, numericality: { only_integer: true, in: (MIN_AGE..MAX_AGE), allow_nil: true }
 
   def name
     [first_name, last_name].join(" ")

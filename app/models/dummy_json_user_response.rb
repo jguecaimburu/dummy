@@ -5,8 +5,10 @@ class DummyJsonUserResponse < ApplicationRecord
 
   enum status: { pending: "pending", processing: "processing", processed: "processed" }
 
-  validates :external_reference, uniqueness: true
-  validate :should_be_pending, on: :update, if: -> { processing? && status_changed? }
+  validates :external_reference, presence: true, uniqueness: true
+  validates :data, presence: true, on: :create
+  validates :user, uniqueness: true, if: :user
+  validate :should_be_pending, on: :update, if: :processing?
 
   after_create_commit :schedule_parsing_job
 

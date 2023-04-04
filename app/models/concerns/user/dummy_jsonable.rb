@@ -11,16 +11,13 @@ class User
     # rubocop:disable Metrics/BlockLength, Metrics/AbcSize, Metrics/MethodLength
     class_methods do
       def create_from_dummy_json_response!(dummy_json_user_response)
-        external_reference = dummy_json_user_response.external_reference
-        other_users = joins(:dummy_json_user_response)
-                      .merge(DummyJsonUserResponse.where(external_reference:))
-        return if other_users.exists?
+        return if dummy_json_user_response.user_id.present?
 
         data = process_dummy_json_data(dummy_json_user_response.data)
         user = nil
         transaction do
           user = create!(data)
-          dummy_json_user_response.update!(user:)
+          dummy_json_user_response.update_attribute(:user, user)
         end
 
         user
