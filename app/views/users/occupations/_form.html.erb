@@ -100,8 +100,10 @@
           <div class="row justify-content-end pr-5 pt-4">
             <div class="col-3">
               <div class="d-flex justify-content-end gap-4">
-                <%= link_to "Cancel", :back, class: "btn btn-danger" %>
-                <%= form.submit class: "btn btn-primary" %>
+                <% if occupation.persisted? %>
+                  <%= link_to "Cancel", user_occupation_path(occupation.user, occupation), class: "btn btn-danger" %>
+                <% end %>
+                <%= form.submit "Create Company", class: "btn btn-primary" %>
               </div>
             </div>
           </div>

@@ -243,7 +243,11 @@
       <div class="row justify-content-end pr-5 pt-4">
         <div class="col-3">
           <div class="d-flex justify-content-end gap-4">
-            <%= link_to "Cancel", :back, class: "btn btn-danger" %>
+            <% if user.persisted? %>
+              <%= link_to "Cancel", @user, class: "btn btn-danger" %>
+            <% else %>
+              <%= link_to "Cancel", :back, class: "btn btn-danger" %>
+            <% end %>
             <%= form.submit class: "btn btn-primary" %>
           </div>
         </div>

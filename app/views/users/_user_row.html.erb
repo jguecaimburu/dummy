@@ -7,7 +7,11 @@
   <td>
     <div class="d-flex align-items-center gap-3">
       <div>
-        <%= image_tag(user.image, height: 45, width: 45, alt: user.name, class: "rounded") %>
+        <% if user.image.present? %>
+          <%= image_tag(user.image, height: 45, width: 45, alt: user.name, class: "rounded") %>
+        <% else %>
+          <div class="rounded-circle user-row-default-picture"></div>
+        <% end %>
       </div>
       <div>
         <p class="fw-bold mb-1"><%= user.name %></p>
