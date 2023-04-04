@@ -9,9 +9,9 @@ describe User::Trashable do
     before { user.dup.save! }
 
     context "when all users are trashable" do
-      it "should trash all users" do
+      it "trashes all users" do
         user_ids = User.all.pluck(:id)
-        
+
         expect do
           expect(User.bulk_trash(user_ids)).to be true
         end.to(
@@ -23,7 +23,7 @@ describe User::Trashable do
 
   describe "trash" do
     context "when trashed for the first time" do
-      it "should enqueue incineration job" do
+      it "enqueues incineration job" do
         expect do
           expect(user.trash).to be true
         end.to(
@@ -33,7 +33,7 @@ describe User::Trashable do
     end
 
     context "when trashed for the second time" do
-      it "should enqueue incineration job" do
+      it "enqueues incineration job" do
         user.trashed!
 
         expect do
@@ -47,20 +47,20 @@ describe User::Trashable do
 
   describe "incinerating!" do
     context "when user registered" do
-      it "should raise error" do
+      it "raises error" do
         expect { user.incinerating! }.to raise_error(ActiveRecord::RecordInvalid)
       end
     end
 
     context "when user trashed" do
-      it "should change status to incinerating" do
+      it "changes status to incinerating" do
         user.trashed!
         expect { user.incinerating! }.to change { user.status.to_sym }.to(:incinerating)
       end
     end
 
     context "when user incinerating" do
-      it "should raise error" do
+      it "raises error" do
         user.trashed!
         user.incinerating!
         expect { user.incinerating! }.to raise_error(ActiveRecord::RecordInvalid)
@@ -69,7 +69,7 @@ describe User::Trashable do
   end
 
   describe "incinerate!" do
-    it "should send email and destroy record" do
+    it "sends email and destroy record" do
       email = user.email
       expect do
         user.incinerate!

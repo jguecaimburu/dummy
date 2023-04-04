@@ -6,7 +6,7 @@ describe UserIncinerationJob do
   let(:user) { users(:terry_medhurst) }
 
   context "when user registered" do
-    it "should return without changing user" do
+    it "returns without changing user" do
       expect do
         described_class.new.perform(user.id)
       end.to(
@@ -17,7 +17,7 @@ describe UserIncinerationJob do
   end
 
   context "when user trashed" do
-    it "should incinerate user" do
+    it "incinerates user" do
       user.trashed!
       email = user.email
       expect do
@@ -33,7 +33,7 @@ describe UserIncinerationJob do
   context "when user incinerating" do
     # NOTE: Error will be raised on a race condition, for example
     #       if two workers try to execute the job at the same time
-    it "should return without changing user" do
+    it "returns without changing user" do
       user.trashed!
       user.incinerating!
 

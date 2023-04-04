@@ -4,8 +4,9 @@ class User
   module Trashable
     extend ActiveSupport::Concern
 
+    INCINERATION_DELAY = 30.minutes
+
     included do
-      INCINERATION_DELAY = 30.minutes
       validate :should_be_trashed_before_incineration, on: :update, if: :incinerating?
       after_update_commit :incinerate_later, if: -> { trashed? && status_previously_changed? }
     end
@@ -24,7 +25,7 @@ class User
     def trash
       update(status: :trashed)
     end
-  
+
     def incinerate!
       UserMailer.with(user: self).incinerated.deliver_now
       destroy!
@@ -35,7 +36,7 @@ class User
     def should_be_trashed_before_incineration
       errors.add(:status, :was_not_trashed) unless status_was.to_sym == :trashed
     end
-  
+
     def incinerate_later
       UserIncinerationJob.perform_in(INCINERATION_DELAY, id)
     end

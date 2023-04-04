@@ -14,7 +14,7 @@ describe DummyJsonUserResponse do
     end
 
     context "when all attributes present" do
-      it "should be valid" do
+      it "is valid" do
         expect(new_response).to be_valid
       end
     end
@@ -22,7 +22,7 @@ describe DummyJsonUserResponse do
     context "when external reference not present" do
       before { new_response.external_reference = nil }
 
-      it "should be invalid" do
+      it "is invalid" do
         expect(new_response).to be_invalid
       end
     end
@@ -30,7 +30,7 @@ describe DummyJsonUserResponse do
     context "when data not present" do
       before { new_response.data = nil }
 
-      it "should be invalid" do
+      it "is invalid" do
         expect(new_response).to be_invalid
       end
     end
@@ -38,7 +38,7 @@ describe DummyJsonUserResponse do
     context "when data empty" do
       before { new_response.data = {} }
 
-      it "should be invalid" do
+      it "is invalid" do
         expect(new_response).to be_invalid
       end
     end
@@ -46,7 +46,7 @@ describe DummyJsonUserResponse do
     context "when user repeated" do
       before { new_response.user = users(:terry_medhurst) }
 
-      it "should be invalid" do
+      it "is invalid" do
         expect(new_response).to be_invalid
       end
     end
@@ -54,13 +54,13 @@ describe DummyJsonUserResponse do
 
   describe "processing!" do
     context "when response pending" do
-      it "should change status to processing" do
+      it "changes status to processing" do
         expect { response.processing! }.to change { response.status.to_sym }.to(:processing)
       end
     end
 
     context "when response processing" do
-      it "should raise error" do
+      it "raises error" do
         response.processing!
         expect { response.processing! }.to raise_error(ActiveRecord::RecordInvalid)
       end

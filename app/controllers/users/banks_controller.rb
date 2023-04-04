@@ -30,7 +30,8 @@ module Users
           format.html { render :new, status: :unprocessable_entity }
           format.json { render json: @bank.errors, status: :unprocessable_entity }
           format.turbo_stream do
-            render turbo_stream: turbo_stream.replace(dom_id(@bank), partial: "users/banks/form", locals: { bank: @bank }),
+            render turbo_stream:
+                     turbo_stream.replace(dom_id(@bank), partial: "users/banks/form", locals: { bank: @bank }),
                    status: :unprocessable_entity
           end
         end
@@ -47,7 +48,8 @@ module Users
           format.html { render :edit, status: :unprocessable_entity }
           format.json { render json: @bank.errors, status: :unprocessable_entity }
           format.turbo_stream do
-            render turbo_stream: turbo_stream.replace(dom_id(@bank), partial: "users/banks/form", locals: { bank: @bank }),
+            render turbo_stream:
+                     turbo_stream.replace(dom_id(@bank), partial: "users/banks/form", locals: { bank: @bank }),
                    status: :unprocessable_entity
           end
         end

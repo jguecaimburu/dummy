@@ -7,30 +7,30 @@ describe CachePurgeable do
 
   describe "purge_cache_later" do
     context "when new user created" do
-      it "should schedule job to purge cache" do
-        expect {
+      it "schedules job to purge cache" do
+        expect do
           User.create!(first_name: "Charly", last_name: "Brown")
-        }.to(
+        end.to(
           change { PurgeCacheJob.jobs.size }.by(1)
         )
       end
     end
 
     context "when user updated" do
-      it "should schedule job to purge cache" do
-        expect {
+      it "schedules job to purge cache" do
+        expect do
           user.update!(first_name: "Charly", last_name: "Brown")
-        }.to(
+        end.to(
           not_change { PurgeCacheJob.jobs.size }
         )
       end
     end
 
     context "when user destroyed" do
-      it "should schedule job to purge cache" do
-        expect {
+      it "schedules job to purge cache" do
+        expect do
           user.destroy!
-        }.to(
+        end.to(
           change { PurgeCacheJob.jobs.size }.by(1)
         )
       end

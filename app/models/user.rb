@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  include PgSearch::Model, CachePurgeable, DummyJsonable, Trashable
+  include Trashable
+  include DummyJsonable
+  include CachePurgeable
+  include PgSearch::Model
 
   has_one :bank, dependent: :destroy
   has_one :address, dependent: :destroy

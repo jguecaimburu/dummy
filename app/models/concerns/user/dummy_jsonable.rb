@@ -17,7 +17,7 @@ class User
         user = nil
         transaction do
           user = create!(data)
-          dummy_json_user_response.update_attribute(:user, user)
+          dummy_json_user_response.update_attribute(:user, user) # rubocop:disable Rails/SkipsModelValidations
         end
 
         user
