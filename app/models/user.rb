@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  include PgSearch::Model, DummyJsonable, Trashable
+  include PgSearch::Model, CachePurgeable, DummyJsonable, Trashable
 
   has_one :bank, dependent: :destroy
   has_one :address, dependent: :destroy
@@ -34,15 +34,7 @@ class User < ApplicationRecord
                   against: %i[first_name last_name maiden_name email],
                   using: { tsearch: { prefix: true } }
 
-  after_commit :purge_cache_later, on: %i[create destroy]
-
   def name
     [first_name, last_name].join(" ")
-  end
-
-  private
-
-  def purge_cache_later
-    PurgeCacheJob.perform_async
   end
 end
