@@ -9,22 +9,26 @@ class FetchDummyJsonUsersJob < ApplicationJob
     @limit_users = limit_users
     @retries = retries
 
-    users_data = fetch_dummy_json_data
-    return if users_data.empty?
-
-    bulk_create_user_responses(users_data)
-
-    return if users_data["total"] <= @skip_users + @limit_users
+    result = fetch_dummy_json_data
+    return unless result.success?
+    return if result.response["total"] <= @skip_users + @limit_users
 
     schedule_next_batch_fetching
   end
 
   def fetch_dummy_json_data
-    DummyJsonService.new.users_data(skip: @skip_users, limit: @limit_users)
-  rescue RuntimeError => e
-    logger.error e.message
-    attempt_retry
-    {}
+    result = DummyJsonService.new.users_data(skip: @skip_users, limit: @limit_users)
+
+    result.on_success do |r|
+      bulk_create_user_responses(r.response)
+    end
+
+    result.on_failure do |r|
+      logger.error r.error_message
+      attempt_retry
+    end
+
+    result
   end
 
   def bulk_create_user_responses(users_data)
