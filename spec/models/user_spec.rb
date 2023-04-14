@@ -76,9 +76,33 @@ describe User do
   end
 
   describe "self.by_age" do
-    context "when user age in range" do
+    context "when user age in range and both range ends present" do
       it "returns a relation including record" do
         expect(described_class.by_age(from: 30, to: 60).pluck(:id)).to include(user.id)
+      end
+    end
+
+    context "when user age in range and from not given" do
+      it "returns a relation including record" do
+        expect(described_class.by_age(to: 60).pluck(:id)).to include(user.id)
+      end
+    end
+
+    context "when user age in range and to not given" do
+      it "returns a relation including record" do
+        expect(described_class.by_age(from: 30).pluck(:id)).to include(user.id)
+      end
+    end
+
+    context "when user age in range and from blank" do
+      it "returns a relation including record" do
+        expect(described_class.by_age(from: "", to: 60).pluck(:id)).to include(user.id)
+      end
+    end
+
+    context "when user age in range and to blank" do
+      it "returns a relation including record" do
+        expect(described_class.by_age(from: 30, to: "").pluck(:id)).to include(user.id)
       end
     end
 

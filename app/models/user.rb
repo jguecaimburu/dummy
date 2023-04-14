@@ -29,9 +29,13 @@ class User < ApplicationRecord
     "O-" => "negative_zero"
   }
 
-  scope :by_age, ->(from:, to:) { where(age: (from.to_i..to.to_i)) }
   MIN_AGE = 1
   MAX_AGE = 125
+  scope :by_age, lambda { |from: nil, to: nil|
+    from = from.presence || MIN_AGE
+    to = to.presence || MAX_AGE
+    where(age: (from.to_i..to.to_i))
+  }
 
   pg_search_scope :by_full_name_and_email,
                   against: %i[first_name last_name maiden_name email],

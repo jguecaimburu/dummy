@@ -46,9 +46,11 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.trash
         format.html { redirect_to users_path, notice: "User was successfully trashed." }
+        format.turbo_stream
         format.json { head :no_content }
       else
         format.html { redirect_to users_path, alert: "User could not be trashed." }
+        format.turbo_stream { redirect_to users_path, alert: "User could not be trashed." }
         format.json { head :unprocessable_entity }
       end
     end
