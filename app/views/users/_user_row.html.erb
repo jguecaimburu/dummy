@@ -6,15 +6,17 @@
   </td>
   <td>
     <div class="d-flex align-items-center gap-3">
+      <%= link_to user do %>
+        <div>
+          <% if user.image.present? %>
+            <%= image_tag(user.image, height: 45, width: 45, alt: user.name, class: "rounded") %>
+          <% else %>
+            <div class="rounded-circle user-row-default-picture"></div>
+          <% end %>
+        </div>
+      <% end %>
       <div>
-        <% if user.image.present? %>
-          <%= image_tag(user.image, height: 45, width: 45, alt: user.name, class: "rounded") %>
-        <% else %>
-          <div class="rounded-circle user-row-default-picture"></div>
-        <% end %>
-      </div>
-      <div>
-        <p class="fw-bold mb-1"><%= user.name %></p>
+        <%= link_to user.name, user, class: "link-dark fw-bold mb-1 text-decoration-none" %>
         <p class="text-muted mb-0"><%= user.email %></p>
       </div>
     </div>
