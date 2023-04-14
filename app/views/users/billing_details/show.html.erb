@@ -7,7 +7,7 @@
           <span>Back to Users</span>
         <% end %>
 
-        <%= button_to @user, method: :delete, class: "btn btn-danger btn-rounded btn-lg" do %>
+        <%= button_to @user, method: :delete,  data: { turbo: false },class: "btn btn-danger btn-rounded btn-lg" do %>
           <i class="bi bi-trash3-fill"></i>
           <span>Delete</span>
         <% end %>
