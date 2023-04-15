@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
-class DummyJsonService < ApplicationService
+class DummyJsonService
+  include Serviceable
+
   BASE_URI = URI("https://dummyjson.com")
 
   attr_reader :http_client
 
   def initialize(http_client: nil)
-    super
     @http_client = http_client || Faraday
   end
 
