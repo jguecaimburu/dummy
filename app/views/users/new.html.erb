@@ -24,28 +24,13 @@
                       <%= render "user_profile", user: @user %>
                     <% end %>
                     
-                    <div
-                      class="nav flex-column nav-pills text-center"
-                      id="v-pills-tab"
-                      role="tablist"
-                      aria-orientation="vertical">
-
-                      <%= link_to "Personal Data",
-                            "#",
-                            class: "nav-link active",
-                            role: "tab", aria: { selected: true } %>
-
-                      <%= link_to "Billing Details",
-                            "#",
-                            class: "nav-link disabled",
-                            role: "tab", aria: { selected: false } %>
-                      
-                      <%= link_to "Company",
-                            "#",
-                            class: "nav-link disabled",
-                            role: "tab", aria: { selected: false } %>
-
-                    </div>
+                    <%= render(VerticalNavbarComponent.new) do |component| %>
+                      <% component.with_tabs([
+                        { name: "Personal Data", path: "#", current_tab: true },
+                        { name: "Billing Details", path: "#", class: ["nav-link", "disabled"], current_tab: false },
+                        { name: "Company", path: "#", class: ["nav-link", "disabled"], current_tab: false }
+                      ]) %>
+                    <% end %>
                   </div>
                   <div class="col-8 mt-4">
                     <%= render "form", user: @user %>
