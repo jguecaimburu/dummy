@@ -29,30 +29,8 @@
                       <%= render "user_profile", user: @user %>
                     <% end %>
                     
-                    <div
-                      class="nav flex-column nav-pills text-center"
-                      id="v-pills-tab"
-                      role="tablist"
-                      aria-orientation="vertical">
-
-                      <%= link_to "Personal Data",
-                            "#",
-                            class: "nav-link active",
-                            role: "tab", aria: { selected: true } %>
-
-                      <%= link_to "Billing Details",
-                            user_billing_detail_path(@user),
-                            class: "nav-link",
-                            role: "tab", aria: { selected: false } %>
-                      
-                      <% occupation= @user.occupation %>
-                      <% occupation_link = occupation.nil? ? new_user_occupation_path(@user) : user_occupation_path(@user, occupation) %>
-                      <%= link_to "Company",
-                            occupation_link,
-                            class: "nav-link",
-                            role: "tab", aria: { selected: false } %>
-
-                    </div>
+                    <%= render partial: "users/shared/vertical_navbar",
+                          locals: { user: @user } %>
                   </div>
                   <div class="col-8 mt-4">
                     <% cache [@user, notice.present?] do %>

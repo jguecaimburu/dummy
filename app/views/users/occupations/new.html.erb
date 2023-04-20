@@ -24,28 +24,8 @@
                       <%= render "users/user_profile", user: @user %>
                     <% end %>
                     
-                    <div
-                        class="nav flex-column nav-pills text-center"
-                        id="v-pills-tab"
-                        role="tablist"
-                        aria-orientation="vertical">
-
-                        <%= link_to "Personal Data",
-                              @user,
-                              class: "nav-link",
-                              role: "tab", aria: { selected: false } %>
-
-                        <%= link_to "Billing Details",
-                              user_billing_detail_path(@user),
-                              class: "nav-link",
-                              role: "tab", aria: { selected: false } %>
-                        
-                        <%= link_to "Company",
-                              "#",
-                              class: "nav-link active",
-                              role: "tab", aria: { selected: true } %>
-                              
-                      </div>
+                    <%= render partial: "users/shared/vertical_navbar",
+                          locals: { user: @user } %>
                   </div>
                   <div class="col-8 mt-4">
                     <%= render "form", occupation: @occupation %>

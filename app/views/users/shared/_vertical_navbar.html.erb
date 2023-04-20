@@ -1,0 +1,9 @@
+<% occupation= user.occupation %>
+<% occupation_path = occupation&.persisted? ? user_occupation_path(user, occupation): new_user_occupation_path(user) %>
+<%= render(VerticalNavbarComponent.new) do |component| %>
+  <% component.with_tabs([
+    { name: "Personal Data", path: user_path(user) },
+    { name: "Billing Details", path: user_billing_detail_path(user) },
+    { name: "Company", path: occupation_path }
+  ]) %>
+<% end %>
